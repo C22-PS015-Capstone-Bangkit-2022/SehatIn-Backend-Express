@@ -1,0 +1,27 @@
+{
+  "name": "sehatin-backend-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C22-PS015-Capstone-Bangkit-2022/SehatIn-Backend-Express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C22-PS015-Capstone-Bangkit-2022/SehatIn-Backend-Express/issues"
+  },
+  "homepage": "https://github.com/C22-PS015-Capstone-Bangkit-2022/SehatIn-Backend-Express#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
