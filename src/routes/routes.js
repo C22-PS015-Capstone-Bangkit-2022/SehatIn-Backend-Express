@@ -1,8 +1,22 @@
+// const client = require("../config/database");
+const user = require('../controllers/user');
+const desease = require('../controllers/desease');
+const articles = require("../controllers/article.controller");
+
 module.exports = app => {
-    const articles = require("../controllers/article.controller");
+    var router = require("express").Router();
 
-    let router = require("express").Router();
-
+    // router.get("/artikel", (req, res) => {
+    //     client.query("select * from artikel", (err, result) => {
+    //         if (!err){
+    //             res.send(result.rows)
+    //         }
+    //     })
+    // })
+    router.get('/desease', desease.findAll)
+    router.get('/user', user.findAll);
+  
+    /* ARTICLE*/
     // Retrieve all Articles with id
     router.get("/articles", articles.allArticles);
 
