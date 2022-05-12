@@ -1,11 +1,22 @@
-// In src/index.js
 const express = require("express");
 const bodyParser = require("body-parser");
-const client = require("./config/database");
 const db = require("./models");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+let corsOptions = {
+    origin: ['*']
+};
+
+//use cors
+app.use(cors(corsOptions))
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
