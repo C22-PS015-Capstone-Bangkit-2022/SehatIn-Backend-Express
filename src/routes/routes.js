@@ -14,6 +14,6 @@ module.exports = app => {
     // })
     router.get('/desease', desease.findAll)
     router.get('/user', user.findAll);
-    app.use("/api/capstone", router);
+    app.use("/api/v1", router);
 }
 

@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const client = require("./config/database");
+const cookieSession = require("cookie-session");
 const db = require("./models");
 
 const app = express();
@@ -12,6 +13,15 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+    cookieSession({
+      name: "sehatin-session",
+      secret: "COOKIE_SECRET", // should use as secret environment variable
+      httpOnly: true,
+      sameSite: 'strict'
+    })
+  );
 
 db.sequelize.sync();
 // drop the table if it already exists
@@ -25,7 +35,9 @@ app.get("/", (req, res) => {
     res.send("<h2>It's Working!</h2>");
 });
 
-require("./routes/routes")(app);
+require("./routes/auth.routes")(app);
+require("./routes/user.routes")(app);
+// require("./routes/routes")(app);
 
 app.listen(PORT, () => {
     console.log(`API is listening on port ${PORT}`);

@@ -13,7 +13,9 @@ module.exports  = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       id_user : {
-          type : Sequelize.INTEGER
+          type : Sequelize.INTEGER,
+          primaryKey : true,
+          autoIncrement: true
       },
       jenis_kelamin: {
         type: Sequelize.STRING
