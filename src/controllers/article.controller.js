@@ -19,7 +19,7 @@ exports.allArticles = (req, res) => {
 };
 
 exports.articleById = (req, res) => {
-    const id = req.params.id_artikel;
+    const id = req.params.id;
   
     Article.findByPk(id)
       .then(data => {

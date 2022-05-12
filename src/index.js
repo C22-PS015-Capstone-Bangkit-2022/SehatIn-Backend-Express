@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
     res.send("<h2>It's Working!</h2>");
 });
 
-require("./routes/article.routes")(app);
+require("./routes/routes")(app);
 
 app.listen(PORT, () => {
     console.log(`API is listening on port ${PORT}`);

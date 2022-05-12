@@ -3,10 +3,11 @@ module.exports = app => {
 
     let router = require("express").Router();
 
+    // Retrieve all Articles with id
     router.get("/articles", articles.allArticles);
 
-    // Retrieve a single Tutorial with izd
-    router.get("/articles/:id_artikel", articles.articleById);
+    // Retrieve a single Article with id
+    router.get("/articles/:id", articles.articleById);
 
     app.use("/api/sehatin", router);
 }
