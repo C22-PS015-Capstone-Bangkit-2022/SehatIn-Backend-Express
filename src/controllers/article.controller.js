@@ -19,8 +19,8 @@ const getPagingData = (data, page, limit) => {
 };
 
 exports.allArticles = (req, res) => {
-  const { page, size, judul } = req.query;
-  var condition = judul ? { judul: { [Op.like]: `%${judul}%` } } : null;
+  const { page, size, title } = req.query;
+  var condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 
