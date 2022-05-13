@@ -1,20 +1,19 @@
-// const client = require("../config/database");
-const user = require('../controllers/user');
-const desease = require('../controllers/desease');
+const user = require('../controllers/user.controller');
+const disease = require('../controllers/disease.controller');
 const articles = require("../controllers/article.controller");
+const screening_question = require("../controllers/screening_question.controller");
 
 module.exports = app => {
     var router = require("express").Router();
 
-    // router.get("/artikel", (req, res) => {
-    //     client.query("select * from artikel", (err, result) => {
-    //         if (!err){
-    //             res.send(result.rows)
-    //         }
-    //     })
-    // })
-    router.get('/desease', desease.findAll)
-    router.get('/user', user.findAll);
+    /* DISEASE */
+    router.get("/disease", disease.findAll)
+
+    /* USER */
+    router.get("/user", user.findAll);
+
+    /* SCREEENING_QUESTION */
+    router.get("/screening-question", screening_question.findAll);
   
     /* ARTICLE*/
     // Retrieve all Articles with id

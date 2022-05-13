@@ -1,16 +1,16 @@
 const db = require('../models');
-const query = db.desease;
+const query = db.screening_question;
 
 exports.findAll = (req, res) => {
     query.findAll({
-        attributes : ['nama_penyakit']
+        attributes : ['id_pertanyaan', 'pertanyaan', 'untuk_penyakit']
     })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + id
+          message: "Some error occurred while retrieving disease."
         });
       });
   };

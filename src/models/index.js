@@ -20,7 +20,14 @@ db.sequelize = sequelize;
 
 
 db.user = require("./user.model.js")(sequelize, Sequelize);
-db.desease = require("./desease.model")(sequelize, Sequelize);
+db.disease = require("./disease.model")(sequelize, Sequelize);
 db.articles = require("./article.model")(sequelize, Sequelize);
+db.screening_question = require("./screening_question.model")(sequelize, Sequelize);
+
+db.disease.hasMany(db.screening_question,{
+    foreignKey : "id_penyakit"
+});
+
+db.screening_question.belongsTo(db.disease);
 
 module.exports = db;
