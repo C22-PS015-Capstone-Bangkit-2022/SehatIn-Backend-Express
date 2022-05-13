@@ -21,7 +21,12 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-    }, {
+        createdAt: {
+            allowNull: true,
+            type: "TIMESTAMP"
+        }
+    }, 
+    {
         updatedAt: false
     });
     return Article;

@@ -1,14 +1,33 @@
+const { articles } = require("../models");
 const db = require("../models");
 const Article = db.articles;
 const Op = db.Sequelize.Op;
 
-exports.allArticles = (req, res) => {
-    const judul = req.query.judul;
-    let condition = judul ? { judul: { [Op.iLike]: `%${judul}%` } } : null;
+const getPagination = (page, size) => {
+  const limit = size;
+  const offset = page ? page * limit : 0;
 
-    Article.findAll({ where: condition })
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: articles } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, articles, totalPages, currentPage };
+};
+
+exports.allArticles = (req, res) => {
+  const { page, size, judul } = req.query;
+  var condition = judul ? { judul: { [Op.like]: `%${judul}%` } } : null;
+
+  const { limit, offset } = getPagination(page, size);
+
+  Article.findAndCountAll({ where: condition, limit, offset })
     .then(data => {
-      res.send(data);
+      const response = getPagingData(data, page, limit);
+      res.send(response);
     })
     .catch(err => {
       res.status(500).send({
