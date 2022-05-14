@@ -25,5 +25,8 @@ module.exports = app => {
     // Create a new article
     router.post("/articles", articles.addArticle);
 
+    // Update an Article
+    router.put("/articles/:id", articles.updateArticle)
+
     app.use("/api/sehatin", router);
 }

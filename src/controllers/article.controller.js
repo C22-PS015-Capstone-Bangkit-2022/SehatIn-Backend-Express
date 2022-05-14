@@ -5,8 +5,7 @@ const Op = db.Sequelize.Op;
 
 
 exports.addArticle = (req, res)=>{
-
-  if(!req.body.judul && !req.body.isi_artikel) {
+  if(!req.body.judul || !req.body.isi_artikel) {
     res.status(400).send({
       message: "Title or content of article can not be empty!"
     });
@@ -27,6 +26,31 @@ exports.addArticle = (req, res)=>{
       });
     });
 }
+
+exports.updateArticle = (req, res) => {
+  const id = req.params.id;
+
+  Article.update(req.body, {
+    where: {id_artikel: id}
+  })
+    .then(num => {
+      if(num == 1){
+        res.send({
+          message: "Article successfully updated!"
+        });
+      } else {
+        res.send({
+          message: `Cannot update Article`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error updating"
+      });
+    });
+};
+
 const getPagination = (page, size) => {
   const limit = size;
   const offset = page ? page * limit : 0;
