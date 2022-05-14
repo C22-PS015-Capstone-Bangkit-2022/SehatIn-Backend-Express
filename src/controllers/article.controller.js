@@ -5,8 +5,7 @@ const Op = db.Sequelize.Op;
 
 
 exports.addArticle = (req, res)=>{
-
-  if(!req.body.judul && !req.body.isi_artikel) {
+  if(!req.body.judul || !req.body.isi_artikel) {
     res.status(400).send({
       message: "Title or content of article can not be empty!"
     });
@@ -27,6 +26,55 @@ exports.addArticle = (req, res)=>{
       });
     });
 }
+
+exports.updateArticle = (req, res) => {
+  const id = req.params.id;
+
+  Article.update(req.body, {
+    where: {id_artikel: id}
+  })
+    .then(num => {
+      if(num == 1){
+        res.status(200).send({
+          message: "Article successfully updated!"
+        });
+      } else {
+        res.status(404).send({
+          message: "article not found"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred!"
+      });
+    });
+};
+
+exports.deleteArticle = (req,res) => {
+  const id = req.params.id;
+
+  Article.destroy({
+    where: { id_artikel: id}
+  })
+    .then(num => {
+      if (num == 1){
+        res.status(200).send({
+          message: "Article successfully deleted!"
+        });
+      } else {
+        res.status(404).send({
+          message: "Article not found!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred!"
+      })
+    })
+}
+
 const getPagination = (page, size) => {
   const limit = size;
   const offset = page ? page * limit : 0;
