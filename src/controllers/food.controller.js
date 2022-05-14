@@ -24,3 +24,18 @@ exports.addFood = (req, res)=>{
       });
     });
 }
+
+exports.getAllFoods= (req, res) => {
+  Food.findAll({ 
+    attributes: ['id_makanan', 'nama_makanan', 'energy', 'avg_portion', 'nutrisi', 'tipe_makanan', 'good_for', 'bad_for']
+   })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving foods."
+    });
+  });
+};

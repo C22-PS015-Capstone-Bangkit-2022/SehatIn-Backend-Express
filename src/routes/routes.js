@@ -1,6 +1,7 @@
 const user = require('../controllers/user.controller');
 const disease = require('../controllers/disease.controller');
 const articles = require("../controllers/article.controller");
+const foods = require("../controllers/food.controller");
 const screening_question = require("../controllers/screening_question.controller");
 
 module.exports = app => {
@@ -29,7 +30,14 @@ module.exports = app => {
     router.put("/articles/:id", articles.updateArticle)
 
     // Delete an Article
-    router.delete("/articles/:id", articles.deleteArticle)
+    router.delete("/articles/:id", articles.deleteArticle);
+
+    /*FOOD*/
+    // Create a food
+    router.post("/food", foods.addFood);
+
+    // Get All food
+    router.get("/food", foods.getAllFoods);
 
     app.use("/v1/", router);
 }

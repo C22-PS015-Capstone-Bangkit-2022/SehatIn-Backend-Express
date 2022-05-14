@@ -2,9 +2,15 @@ module.exports = (sequelize, Sequelize) => {
     const Food = sequelize.define("makanan", {
         nama_makanan: {
             type: Sequelize.STRING
-        }, 
+        },
+        energy: {
+            type: Sequelize.FLOAT
+        },
+        avg_portion: {
+            type: Sequelize.FLOAT
+        },
         nutrisi: {
-            type: Sequelize.TEXT
+            type: Sequelize.STRING
         }, 
         tipe_makanan: {
             type: Sequelize.STRING
