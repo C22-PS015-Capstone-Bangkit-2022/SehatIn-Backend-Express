@@ -19,19 +19,20 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+db.sequelize.sync();
 
-db.sequelize.sync({force: true}).then(() => {
-    for(let i = 1; i<= 25; i++){
-        const article = {
-            judul: `judul${i}`,
-            isi_artikel: `isi${i}`,
-            id_image:679897,
-            source:'google',
-            tag: 'kesehatan',
-        }
-        Article.create(article)
-    }
-})
+// db.sequelize.sync({force: true}).then(() => {
+//     for(let i = 1; i<= 25; i++){
+//         const article = {
+//             judul: `judul${i}`,
+//             isi_artikel: `isi${i}`,
+//             id_image:679897,
+//             source:'google',
+//             tag: 'kesehatan',
+//         }
+//         Article.create(article)
+//     }
+// })
 // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");

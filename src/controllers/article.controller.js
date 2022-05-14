@@ -3,6 +3,30 @@ const db = require("../models");
 const Article = db.articles;
 const Op = db.Sequelize.Op;
 
+
+exports.addArticle = (req, res)=>{
+
+  if(!req.body.judul && !req.body.isi_artikel) {
+    res.status(400).send({
+      message: "Title or content of article can not be empty!"
+    });
+    return;
+  }
+
+  const artikel = {judul, isi_artikel, id_image, source, tag} = req.body;
+
+  // create article
+  Article.create(artikel)
+    .then(data=> {
+      res.status(201).send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occured while create the article."
+      });
+    });
+}
 const getPagination = (page, size) => {
   const limit = size;
   const offset = page ? page * limit : 0;
@@ -18,7 +42,7 @@ const getPagingData = (data, page, limit) => {
   return { totalItems, articles, totalPages, currentPage };
 };
 
-exports.allArticles = (req, res) => {
+exports.getAllArticles = (req, res) => {
   const { page, size, title } = req.query;
   var condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
 
@@ -27,7 +51,7 @@ exports.allArticles = (req, res) => {
   Article.findAndCountAll({ where: condition, limit, offset })
     .then(data => {
       const response = getPagingData(data, page, limit);
-      res.send(response);
+      res.status(200).send(response);
     })
     .catch(err => {
       res.status(500).send({
@@ -37,12 +61,12 @@ exports.allArticles = (req, res) => {
     });
 };
 
-exports.articleById = (req, res) => {
+exports.getArticleById = (req, res) => {
     const id = req.params.id;
   
     Article.findByPk(id)
       .then(data => {
-        res.send(data);
+        res.status(200).send(data);
       })
       .catch(err => {
         res.status(500).send({

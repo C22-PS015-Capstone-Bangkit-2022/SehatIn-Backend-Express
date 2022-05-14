@@ -17,10 +17,13 @@ module.exports = app => {
   
     /* ARTICLE*/
     // Retrieve all Articles with id
-    router.get("/articles", articles.allArticles);
+    router.get("/articles", articles.getAllArticles);
 
     // Retrieve a single Article with id
-    router.get("/articles/:id", articles.articleById);
+    router.get("/articles/:id", articles.getArticleById);
+
+    // Create a new article
+    router.post("/articles", articles.addArticle);
 
     app.use("/api/sehatin", router);
 }
