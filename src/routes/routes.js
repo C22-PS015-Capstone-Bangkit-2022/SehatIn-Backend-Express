@@ -39,5 +39,8 @@ module.exports = app => {
     // Get All food
     router.get("/food", foods.getAllFoods);
 
+    // delete a food
+    router.delete("/food/:id", foods.deleteFood);
+
     app.use("/v1/", router);
 }

@@ -39,3 +39,27 @@ exports.getAllFoods= (req, res) => {
     });
   });
 };
+
+exports.deletefood = (req, res) => {
+  const id = req.params.id;
+
+  Food.destroy({
+    where: { id_makanan: id}
+  })
+    .then(num => {
+      if (num == 1){
+        res.status(200).send({
+          message: "Food successfully deleted!"
+        });
+      } else {
+        res.status(404).send({
+          message: "Food not found!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred!"
+      })
+    })
+}
