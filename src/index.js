@@ -9,6 +9,7 @@ const Article = db.articles;
 const app = express();
 const API_VERSION ="1.01"
 const PORT = process.env.PORT || 3300;
+const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 let corsOptions = {
     origin: ['*']
 };
@@ -52,4 +53,5 @@ require("./routes/routes")(app);
 
 app.listen(PORT, () => {
     console.log(`API is listening on port ${PORT}`);
+    V1SwaggerDocs(app, PORT);
 });
