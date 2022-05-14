@@ -31,5 +31,5 @@ module.exports = app => {
     // Delete an Article
     router.delete("/articles/:id", articles.deleteArticle)
 
-    app.use("/api/sehatin", router);
+    app.use("/v1/", router);
 }
