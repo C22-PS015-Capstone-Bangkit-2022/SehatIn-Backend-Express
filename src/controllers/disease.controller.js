@@ -1,9 +1,9 @@
 const db = require('../models');
-const query = db.desease;
+const query = db.disease;
 
 exports.findAll = (req, res) => {
     query.findAll({
-        attributes : ['nama_penyakit']
+      attributes : ["id_penyakit", "nama_penyakit"]
     })
       .then(data => {
         res.send(data);
