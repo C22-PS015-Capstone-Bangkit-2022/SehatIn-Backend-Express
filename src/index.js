@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./models/");
@@ -6,10 +7,13 @@ const cors = require("cors");
 const Article = db.articles;
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const API_VERSION ="1.01"
+const PORT = process.env.PORT || 3300;
 let corsOptions = {
     origin: ['*']
 };
+
+require('dotenv').config()
 
 //use cors
 app.use(cors(corsOptions))
@@ -41,7 +45,7 @@ db.sequelize.sync();
 
 // For testing purposes
 app.get("/", (req, res) => {
-    res.send("<h2>It's Working!</h2>");
+    res.send(  `<h2>SehatIn API v${API_VERSION}</h2>`);
 });
 
 require("./routes/routes")(app);
