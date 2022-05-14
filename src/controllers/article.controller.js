@@ -35,21 +35,45 @@ exports.updateArticle = (req, res) => {
   })
     .then(num => {
       if(num == 1){
-        res.send({
+        res.status(200).send({
           message: "Article successfully updated!"
         });
       } else {
-        res.send({
-          message: `Cannot update Article`
+        res.status(404).send({
+          message: "article not found"
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Error updating"
+        message: err.message || "Some error occurred!"
       });
     });
 };
+
+exports.deleteArticle = (req,res) => {
+  const id = req.params.id;
+
+  Article.destroy({
+    where: { id_artikel: id}
+  })
+    .then(num => {
+      if (num == 1){
+        res.status(200).send({
+          message: "Article successfully deleted!"
+        });
+      } else {
+        res.status(404).send({
+          message: "Article not found!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred!"
+      })
+    })
+}
 
 const getPagination = (page, size) => {
   const limit = size;
