@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.disease = require("./disease.model")(sequelize, Sequelize);
+db.foods = require("./food.model")(sequelize, Sequelize);
 db.articles = require("./article.model")(sequelize, Sequelize);
 db.screening_question = require("./screening_question.model")(sequelize, Sequelize);
 
