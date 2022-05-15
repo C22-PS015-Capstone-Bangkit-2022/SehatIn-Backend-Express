@@ -9,20 +9,23 @@ module.exports = (sequelize, Sequelize) => {
         avg_portion: {
             type: Sequelize.FLOAT
         },
-        nutrisi: {
-            type: Sequelize.STRING,
-            set(val){
-                this.setDataValue("nutrisi", JSON.stringify(val ?? ""))
-            }
-        }, 
+        fat:{
+            type: Sequelize.FLOAT
+        },
+        protein: {
+            type: Sequelize.FLOAT
+        },
+        carbs: {
+            type: Sequelize.FLOAT
+        },
         tipe_makanan: {
             type: Sequelize.STRING
         },
         good_for: {
-            type: Sequelize.INTEGER
+            type: Sequelize.ARRAY(Sequelize.STRING)
         }, 
         bad_for: {
-            type: Sequelize.INTEGER
+            type: Sequelize.ARRAY(Sequelize.STRING)
         },
         id_makanan: {
             type: Sequelize.INTEGER,
