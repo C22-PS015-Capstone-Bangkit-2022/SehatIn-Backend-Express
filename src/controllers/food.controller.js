@@ -10,7 +10,7 @@ exports.addFood = (req, res)=>{
     return;
   }
 
-  const food = {nama_makanan, nutrisi, tipe_makanan, good_for, bad_for} = req.body;
+  const food = {nama_makanan, energy, avg_portion, tipe_makanan, good_for, bad_for, nutrisi: {fat, protein, carbs}} = req.body;
 
   // create food
   Food.create(food)

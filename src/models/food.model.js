@@ -10,7 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.FLOAT
         },
         nutrisi: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            set(val){
+                this.setDataValue("nutrisi", JSON.stringify(val ?? ""))
+            }
         }, 
         tipe_makanan: {
             type: Sequelize.STRING

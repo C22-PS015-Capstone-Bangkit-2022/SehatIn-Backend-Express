@@ -13,7 +13,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }, 
         tag: {
-            type: Sequelize.STRING
+            type: Sequelize.ARRAY(Sequelize.STRING),
+            defaultValue: null
         },
         id_artikel: {
             type: Sequelize.INTEGER,
