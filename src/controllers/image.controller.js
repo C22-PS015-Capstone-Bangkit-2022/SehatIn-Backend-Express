@@ -3,7 +3,7 @@ const fs = require("fs");
 const db = require("../models");
 const Image = db.images
 
-const uploadImage = async (req, res) => {
+exports.uploadImage = async (req, res) => {
   try {
     console.log(req.file);
 
@@ -24,8 +24,4 @@ const uploadImage = async (req, res) => {
     console.log(error);
     return res.send(`Error when trying upload images: ${error}`);
   }
-};
-
-module.exports = {
-  uploadImage,
 };
