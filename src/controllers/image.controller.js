@@ -34,7 +34,7 @@ const app = express();
 // firebase init
 const storage = new Storage({
   projectId: "sehatin-eab72",
-  keyFilename: "sehatin-eab72-firebase-adminsdk-nx50q-7d4d6f9b16.json",
+  keyFilename: "<privete key.json>",
 });
 const bucket = storage.bucket("gs://sehatin-eab72.appspot.com");
 
