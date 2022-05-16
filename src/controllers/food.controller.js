@@ -40,7 +40,7 @@ exports.getAllFoods= (req, res) => {
   });
 };
 
-exports.deletefood = (req, res) => {
+exports.deleteFood = (req, res) => {
   const id = req.params.id;
 
   Food.destroy({

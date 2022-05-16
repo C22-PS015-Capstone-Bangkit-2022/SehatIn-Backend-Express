@@ -3,6 +3,8 @@ const disease = require('../controllers/disease.controller');
 const articles = require("../controllers/article.controller");
 const foods = require("../controllers/food.controller");
 const screening_question = require("../controllers/screening_question.controller");
+const images = require("../controllers/image.controller");
+const upload = require("../middleware/upload");
 
 module.exports = app => {
     var router = require("express").Router();
@@ -41,6 +43,9 @@ module.exports = app => {
 
     // delete a food
     router.delete("/food/:id", foods.deleteFood);
+
+    // upload images
+    router.post("/upload", upload.single("file"), images.uploadImage);
 
     app.use("/v1/", router);
 }

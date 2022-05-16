@@ -1,56 +1,40 @@
 module.exports = (sequelize, Sequelize) => {
-    const Food = sequelize.define("makanan", {
-        nama_makanan: {
+    const Article = sequelize.define("artikel", {
+        judul: {
             type: Sequelize.STRING
-        },
-        energy: {
-            type: Sequelize.FLOAT
-        },
-        avg_portion: {
-            type: Sequelize.FLOAT
-        },
-        fat:{
-            type: Sequelize.FLOAT
-        },
-        protein: {
-            type: Sequelize.FLOAT
-        },
-        carbs: {
-            type: Sequelize.FLOAT
-        },
-        tipe_makanan: {
-            type: Sequelize.STRING
-        },
-        good_for: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            get() {
-                return this.getDataValue('good_for').split(';')
-            },
-            set(val) {
-               this.setDataValue('good_for',val.join(';'));
-            },
         }, 
-        bad_for: {
+        isi_artikel: {
+            type: Sequelize.TEXT
+        }, 
+        id_image: {
+            type: Sequelize.INTEGER
+        },
+        source: {
+            type: Sequelize.STRING
+        }, 
+        tag: {
             type: Sequelize.STRING,
-            allowNull: true,
+            defaultValue: null,
             get() {
-                return this.getDataValue('bad_for').split(';')
+                return this.getDataValue('tag').split(';')
             },
             set(val) {
-               this.setDataValue('bad_for',val.join(';'));
+               this.setDataValue('tag',val.join(';'));
             },
         },
-        id_makanan: {
+        id_artikel: {
             type: Sequelize.INTEGER,
             unique: true,
             primaryKey: true,
             autoIncrement: true
         },
+        createdAt: {
+            allowNull: true,
+            type: "TIMESTAMP"
+        }
     }, 
     {
-        createdAt: false,
         updatedAt: false
     });
-    return Food;
+    return Article;
 };
