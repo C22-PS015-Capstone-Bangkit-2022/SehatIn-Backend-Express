@@ -1,11 +1,12 @@
 require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
+const expressFileUpload = require("express-fileupload");
 const db = require("./models/");
 const dbConfig = require("./config/db.config")
 const cors = require("cors");
 const Article = db.articles;
-
+global.__basedir = "./";
 const app = express();
 const API_VERSION ="1.01"
 const PORT = process.env.PORT || 3300;
@@ -17,14 +18,18 @@ let corsOptions = {
 require('dotenv').config()
 
 //use cors
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-db.sequelize.sync();
+
+// parse requests of content-type - application/form-data
+// app.use(expressFileUpload());
+
+db.sequelize.sync({force: true});
 
 // db.sequelize.sync({force: true}).then(() => {
 //     for(let i = 1; i<= 25; i++){

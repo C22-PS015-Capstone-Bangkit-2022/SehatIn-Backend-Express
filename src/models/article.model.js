@@ -13,7 +13,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }, 
         tag: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            defaultValue: null,
+            get() {
+                return this.getDataValue('tag').split(';')
+            },
+            set(val) {
+               this.setDataValue('tag',val.join(';'));
+            },
         },
         id_artikel: {
             type: Sequelize.INTEGER,
