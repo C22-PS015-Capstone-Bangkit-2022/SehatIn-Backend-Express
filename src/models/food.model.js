@@ -22,10 +22,18 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         good_for: {
-            type: Sequelize.ARRAY(Sequelize.STRING)
+            type: Sequelize.STRING,
+            get(){
+                const value = this.getDataValue('good_for');
+                return value === null? null : JSON.parse(value);
+            }
         }, 
         bad_for: {
-            type: Sequelize.ARRAY(Sequelize.STRING)
+            type: Sequelize.STRING,
+            get(){
+                const value = this.getDataValue('bad_for');
+                return value === null? null : JSON.parse(value);
+            }
         },
         id_makanan: {
             type: Sequelize.INTEGER,

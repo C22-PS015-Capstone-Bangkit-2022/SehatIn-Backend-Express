@@ -3,14 +3,14 @@ const Food = db.foods;
 
 
 exports.addFood = (req, res)=>{
-  if(!req.body.nama_makanan || !req.body.nutrisi) {
+  if(!req.body.nama_makanan) {
     res.status(400).send({
       message: "name or nutrition can not be empty"
     });
     return;
   }
 
-  const food = {nama_makanan, energy, avg_portion, tipe_makanan, good_for, bad_for, nutrisi: {fat, protein, carbs}} = req.body;
+  const food = {nama_makanan, energy, avg_portion, tipe_makanan, good_for, bad_for, fat, protein, carbs} = req.body;
 
   // create food
   Food.create(food)
