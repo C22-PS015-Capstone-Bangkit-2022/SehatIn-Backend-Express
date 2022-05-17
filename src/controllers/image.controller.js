@@ -31,10 +31,12 @@ const { Storage } = require("@google-cloud/storage");
 
 const app = express();
 
+const DIR_NAME = "ARTICLE_IMAGE";
+
 // firebase init
 const storage = new Storage({
   projectId: "sehatin-eab72",
-  keyFilename: "<privete key.json>",
+  keyFilename: process.env.GOOGLE_PRIVATE_KEY,
 });
 const bucket = storage.bucket("gs://sehatin-eab72.appspot.com");
 
@@ -54,7 +56,7 @@ const uploadImageToStorage = (file) => {
     }
     let newFileName = `${file.originalname}_${Date.now()}`;
 
-    let fileUpload = bucket.file(newFileName);
+    let fileUpload = bucket.file(DIR_NAME + "/" + newFileName);
 
     const blobStream = fileUpload.createWriteStream({
       metadata: {
@@ -74,10 +76,9 @@ const uploadImageToStorage = (file) => {
 
     blobStream.end(file.buffer);
   });
-
 };
 
-exports.uploadFile = (req,res) => {
+exports.uploadFile = (req, res) => {
   let file = req.file;
   if (file) {
     uploadImageToStorage(file)
@@ -90,11 +91,11 @@ exports.uploadFile = (req,res) => {
         // return res.status(500).send({
         //   error: error,
         // });
-        return console.log(error)
+        return console.log(error);
       });
   } else {
     return res.status(422).send({
       error: "file is required",
     });
   }
-}
+};
