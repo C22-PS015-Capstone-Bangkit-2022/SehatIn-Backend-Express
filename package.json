@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/C22-PS015-Capstone-Bangkit-2022/SehatIn-Backend-Express#readme",
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "prettier": "2.6.2"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.19.4",
