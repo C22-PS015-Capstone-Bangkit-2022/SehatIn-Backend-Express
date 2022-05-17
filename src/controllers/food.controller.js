@@ -1,5 +1,6 @@
 const db = require("../models");
 const Food = db.foods;
+const Op = db.Sequelize.Op;
 
 
 exports.addFood = (req, res)=>{
@@ -26,9 +27,9 @@ exports.addFood = (req, res)=>{
 }
 
 exports.getAllFoods= (req, res) => {
-  Food.findAll({ 
-    attributes: ['id_makanan', 'nama_makanan', 'energy', 'avg_portion', 'nutrisi', 'tipe_makanan', 'good_for', 'bad_for']
-   })
+  const {disease} = req.query;
+  let condition = disease ? {good_for: {[Op.like]: `${disease}%`}} : null
+  Food.findAll({where: condition})
   .then(data => {
     res.send(data);
   })
