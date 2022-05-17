@@ -1,51 +1,51 @@
-const user = require('../controllers/user.controller');
-const disease = require('../controllers/disease.controller');
+const user = require("../controllers/user.controller");
+const disease = require("../controllers/disease.controller");
 const articles = require("../controllers/article.controller");
 const foods = require("../controllers/food.controller");
 const screening_question = require("../controllers/screening_question.controller");
 const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
 
-module.exports = app => {
-    var router = require("express").Router();
+module.exports = (app) => {
+  var router = require("express").Router();
 
-    /* DISEASE */
-    router.get("/disease", disease.findAll)
+  /* DISEASE */
+  router.get("/disease", disease.findAll);
 
-    /* USER */
-    router.get("/user", user.findAll);
+  /* USER */
+  router.get("/user", user.findAll);
 
-    /* SCREEENING_QUESTION */
-    router.get("/screening-question", screening_question.findAll);
-  
-    /* ARTICLE*/
-    // Retrieve all Articles with id
-    router.get("/articles", articles.getAllArticles);
+  /* SCREEENING_QUESTION */
+  router.get("/screening-question", screening_question.findAll);
 
-    // Retrieve a single Article with id
-    router.get("/articles/:id", articles.getArticleById);
+  /* ARTICLE*/
+  // Retrieve all Articles with id
+  router.get("/articles", articles.getAllArticles);
 
-    // Create a new article
-    router.post("/articles", articles.addArticle);
+  // Retrieve a single Article with id
+  router.get("/articles/:id", articles.getArticleById);
 
-    // Update an Article
-    router.put("/articles/:id", articles.updateArticle)
+  // Create a new article
+  router.post("/articles/new", articles.addArticle);
 
-    // Delete an Article
-    router.delete("/articles/:id", articles.deleteArticle);
+  // Update an Article
+  router.put("/articles/:id", articles.updateArticle);
 
-    /*FOOD*/
-    // Create a food
-    router.post("/food", foods.addFood);
+  // Delete an Article
+  router.delete("/articles/delete/:id", articles.deleteArticle);
 
-    // Get All food
-    router.get("/food", foods.getAllFoods);
+  /*FOOD*/
+  // Create a food
+  router.post("/food", foods.addFood);
 
-    // delete a food
-    router.delete("/food/:id", foods.deleteFood);
+  // Get All food
+  router.get("/food", foods.getAllFoods);
 
-    // upload images
-    router.post("/upload", images.multer.single("file"), images.uploadFile);
+  // delete a food
+  router.delete("/food/:id", foods.deleteFood);
 
-    app.use("/v1/", router);
-}
+  // upload images
+  router.post("/upload", images.multer.single("file"), images.uploadFile);
+
+  app.use("/v1/", router);
+};
