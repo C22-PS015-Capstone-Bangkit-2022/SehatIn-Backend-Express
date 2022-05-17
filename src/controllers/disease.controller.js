@@ -1,9 +1,14 @@
+const { screening_question } = require('../models');
 const db = require('../models');
 const query = db.disease;
 
 exports.findAll = (req, res) => {
     query.findAll({
-      attributes : ["id_penyakit", "nama_penyakit"]
+      include : {
+        model : screening_question, 
+        attributes : ["id_pertanyaan", "pertanyaan"],
+        required: true 
+      },
     })
       .then(data => {
         res.send(data);

@@ -27,9 +27,9 @@ db.screening_question = require("./screening_question.model")(sequelize, Sequeli
 db.images = require("./image.model.js")(sequelize, Sequelize);
 
 db.disease.hasMany(db.screening_question,{
-    foreignKey : "id_penyakit"
+    foreignKey : "untuk_penyakit"
 });
 
-db.screening_question.belongsTo(db.disease);
+// db.screening_question.belongsTo(db.disease);
 
 module.exports = db;
