@@ -36,7 +36,7 @@ module.exports = (app) => {
 
   /*FOOD*/
   // Create a food
-  router.post("/food", foods.addFood);
+  router.post("/food/new", foods.addFood);
 
   // Get All food
   router.get("/food", foods.getAllFoods);
