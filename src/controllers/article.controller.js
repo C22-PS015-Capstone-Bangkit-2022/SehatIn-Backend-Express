@@ -16,8 +16,17 @@ exports.addArticle = (req, res) => {
     return;
   }
 
-  const artikel = ({ judul, isi_artikel, thumbnail_image, source, tag } =
-    req.body);
+  const created_at = time(req.body.created_at);
+
+  const artikel = { 
+    judul: req.body.judul, 
+    isi_artikel: req.body.isi_artikel, 
+    thumbnail_image: req.body.thumbnail_image, 
+    source: req.body.source, 
+    tag: req.body.tag, 
+    created_at
+  }
+
 
   // create article
   Article.create(artikel)
