@@ -3,6 +3,10 @@ const db = require("../models");
 const Article = db.articles;
 const Op = db.Sequelize.Op;
 
+//Change format time
+const time = (date)=>{
+  return require('moment')(date).format()
+}
 exports.addArticle = (req, res) => {
   console.log(req.body);
   if (!req.body.judul || !req.body.isi_artikel) {
