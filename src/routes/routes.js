@@ -7,7 +7,7 @@ const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
 
 module.exports = (app) => {
-  var router = require("express").Router();
+  const router = require("express").Router();
 
   /* DISEASE */
   router.get("/disease", disease.findAll);
@@ -42,7 +42,7 @@ module.exports = (app) => {
   router.get("/food", foods.getAllFoods);
 
   // delete a food
-  router.delete("/food/:id", foods.deleteFood);
+  router.delete("/food/delete/:id", foods.deleteFood);
 
   // upload images
   router.post("/upload", images.multer.single("file"), images.uploadFile);
