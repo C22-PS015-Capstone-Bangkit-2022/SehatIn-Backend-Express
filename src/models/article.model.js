@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
           const value = this.getDataValue("tag");
           return value === null ? null : JSON.parse(value);
         },
+        set(val) {
+          this.setDataValue("tag", JSON.stringify(val ?? ""));
+        },
       },
       id_artikel: {
         type: Sequelize.INTEGER,
