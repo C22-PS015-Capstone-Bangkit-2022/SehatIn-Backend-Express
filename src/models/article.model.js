@@ -30,12 +30,12 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      createdAt: {
-        allowNull: true,
-        type: "TIMESTAMP",
+      created_at: {
+        type: Sequelize.STRING
       },
     },
     {
+      createdAt: false,
       updatedAt: false,
     }
   );
