@@ -3,77 +3,77 @@ const db = require("../models");
 const Article = db.articles;
 const Op = db.Sequelize.Op;
 
-
-exports.addArticle = (req, res)=>{
-  if(!req.body.judul || !req.body.isi_artikel) {
+exports.addArticle = (req, res) => {
+  console.log(req.body);
+  if (!req.body.judul || !req.body.isi_artikel) {
     res.status(400).send({
-      message: "Title or content of article can not be empty!"
+      message: "Title or content of article can not be empty!",
     });
     return;
   }
 
-  const artikel = {judul, isi_artikel, id_image, source, tag} = req.body;
+  const artikel = ({ judul, isi_artikel, thumbnail_image, source, tag } =
+    req.body);
 
   // create article
   Article.create(artikel)
-    .then(data=> {
+    .then((data) => {
       res.status(201).send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occured while create the article."
+        message: err.message || "Some error occured while create the article.",
       });
     });
-}
+};
 
 exports.updateArticle = (req, res) => {
   const id = req.params.id;
 
   Article.update(req.body, {
-    where: {id_artikel: id}
+    where: { id_artikel: id },
   })
-    .then(num => {
-      if(num == 1){
+    .then((num) => {
+      if (num == 1) {
         res.status(200).send({
-          message: "Article successfully updated!"
+          message: "Article successfully updated!",
         });
       } else {
         res.status(404).send({
-          message: "article not found"
+          message: "article not found",
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred!"
+        message: err.message || "Some error occurred!",
       });
     });
 };
 
-exports.deleteArticle = (req,res) => {
+exports.deleteArticle = (req, res) => {
   const id = req.params.id;
 
   Article.destroy({
-    where: { id_artikel: id}
+    where: { id_artikel: id },
   })
-    .then(num => {
-      if (num == 1){
+    .then((num) => {
+      if (num == 1) {
         res.status(200).send({
-          message: "Article successfully deleted!"
+          message: "Article successfully deleted!",
         });
       } else {
         res.status(404).send({
-          message: "Article not found!"
+          message: "Article not found!",
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred!"
-      })
-    })
-}
+        message: err.message || "Some error occurred!",
+      });
+    });
+};
 
 const getPagination = (page, size) => {
   const limit = size;
@@ -97,29 +97,28 @@ exports.getAllArticles = (req, res) => {
   const { limit, offset } = getPagination(page, size);
 
   Article.findAndCountAll({ where: condition, limit, offset })
-    .then(data => {
+    .then((data) => {
       const response = getPagingData(data, page, limit);
       res.status(200).send(response);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving articles."
+          err.message || "Some error occurred while retrieving articles.",
       });
     });
 };
 
 exports.getArticleById = (req, res) => {
-    const id = req.params.id;
-  
-    Article.findByPk(id)
-      .then(data => {
-        res.status(200).send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: 
-            err.message || "Error retrieving Article with id=" + id
-        });
+  const id = req.params.id;
+
+  Article.findByPk(id)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error retrieving Article with id=" + id,
       });
-  };
+    });
+};
