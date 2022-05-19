@@ -54,7 +54,10 @@ module.exports = (app) => {
   
   /* SPORT */
   // create a sport
-  router.post("/sport/new", sports.addSport);
+  router.post("/sports/new", sports.addSport);
+
+  // Retrieve all sport
+  router.get("/sports", sports.getAllSports);
 
   app.use("/v1/", router);
 };
