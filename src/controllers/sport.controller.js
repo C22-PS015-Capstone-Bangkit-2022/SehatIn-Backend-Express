@@ -36,3 +36,17 @@ exports.getAllSports = (req, res) => {
         });
       });
   };
+
+  exports.getSportById = (req, res) => {
+    const id = req.params.id;
+  
+    Sport.findByPk(id)
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error retrieving Article with id=" + id,
+        });
+      });
+  };
