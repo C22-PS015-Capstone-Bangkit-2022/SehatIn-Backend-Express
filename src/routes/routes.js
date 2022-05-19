@@ -7,7 +7,7 @@ const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
 
 module.exports = (app) => {
-  var router = require("express").Router();
+  const router = require("express").Router();
 
   /* DISEASE */
   router.get("/disease", disease.findAll);
@@ -25,6 +25,7 @@ module.exports = (app) => {
   // Retrieve a single Article with id
   router.get("/articles/:id", articles.getArticleById);
 
+
   // Create a new article
   router.post("/articles/new", articles.addArticle);
 
@@ -39,10 +40,13 @@ module.exports = (app) => {
   router.post("/food/new", foods.addFood);
 
   // Get All food
-  router.get("/food", foods.getAllFoods);
+  router.get("/food", foods.getAllFoodsByDiseases);
+
+  // Get food by search
+  router.get("/food/search", foods.searchFoods);
 
   // delete a food
-  router.delete("/food/:id", foods.deleteFood);
+  router.delete("/food/delete/:id", foods.deleteFood);
 
   // upload images
   router.post("/upload", images.multer.single("file"), images.uploadFile);

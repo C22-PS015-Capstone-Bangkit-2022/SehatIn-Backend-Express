@@ -26,7 +26,7 @@ exports.addFood = (req, res)=>{
     });
 }
 
-exports.getAllFoods= (req, res) => {
+exports.searchFoods = (req, res) => {
   const {disease} = req.query;
   let condition = disease ? {good_for: {[Op.like]: `${disease}%`}} : null
   Food.findAll({where: condition})
@@ -40,6 +40,10 @@ exports.getAllFoods= (req, res) => {
     });
   });
 };
+
+exports.getAllFoodsByDiseases = (req, res) => {
+  
+}
 
 exports.deleteFood = (req, res) => {
   const id = req.params.id;
