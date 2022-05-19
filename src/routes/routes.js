@@ -2,6 +2,7 @@ const user = require("../controllers/user.controller");
 const disease = require("../controllers/disease.controller");
 const articles = require("../controllers/article.controller");
 const foods = require("../controllers/food.controller");
+const sports = require("../controllers/sport.controller");
 const screening_question = require("../controllers/screening_question.controller");
 const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
@@ -50,6 +51,10 @@ module.exports = (app) => {
 
   // upload images
   router.post("/upload", images.multer.single("file"), images.uploadFile);
+  
+  /* SPORT */
+  // create a sport
+  router.post("/sport/new", sports.addSport);
 
   app.use("/v1/", router);
 };

@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 exports.addFood = (req, res)=>{
   if(!req.body.nama_makanan) {
     res.status(400).send({
-      message: "name or nutrition can not be empty"
+      message: "Name can not be empty"
     });
     return;
   }

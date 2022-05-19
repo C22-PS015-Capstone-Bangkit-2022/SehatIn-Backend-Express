@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         category: {
             type: Sequelize.STRING
         },
-        Activity: {
+        activity: {
             type: Sequelize.STRING
         }, 
         energy: {
@@ -12,5 +12,10 @@ module.exports = (sequelize, Sequelize) => {
         avg_duration: {
             type: Sequelize.INTEGER
         }
-    })
+    },
+    {
+        createdAt: false,
+        updatedAt: false
+    });
+    return Sport;
 }
