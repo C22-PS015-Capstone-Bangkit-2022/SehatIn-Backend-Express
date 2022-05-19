@@ -61,6 +61,9 @@ module.exports = (app) => {
   
   // Retrieve a sport by id
   router.get("/sports/:id", sports.getSportById);
+  
+  // Retrieve a sport by id
+  router.delete("/sports/delete/:id", sports.deleteSport);
 
   app.use("/v1/", router);
 };

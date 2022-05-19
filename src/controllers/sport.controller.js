@@ -50,3 +50,27 @@ exports.getAllSports = (req, res) => {
         });
       });
   };
+
+  exports.deleteSport = (req, res) => {
+    const id = req.params.id;
+  
+    Sport.destroy({
+      where: { id_sport: id}
+    })
+      .then(num => {
+        if (num == 1){
+          res.status(200).send({
+            message: "Sport successfully deleted!"
+          });
+        } else {
+          res.status(404).send({
+            message: "Sport not found!"
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || "Some error occurred!"
+        })
+      })
+  }
