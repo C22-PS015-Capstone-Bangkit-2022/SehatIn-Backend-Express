@@ -43,19 +43,19 @@ exports.searchFoods = (req, res) => {
   });
 };
 
-exports.getAllFoodsByDiseases = (req, res) => {
-  Food.findAll({where: condition})
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving foods."
-    });
+// exports.getAllFoodsByDiseases = (req, res) => {
+//   Food.findAll({where: condition})
+//   .then(data => {
+//     res.send(data);
+//   })
+//   .catch(err => {
+//     res.status(500).send({
+//       message:
+//         err.message || "Some error occurred while retrieving foods."
+//     });
 
-  });
-}
+//   });
+// }
 
 exports.deleteFood = (req, res) => {
   const id = req.params.id;
@@ -79,4 +79,28 @@ exports.deleteFood = (req, res) => {
         message: err.message || "Some error occurred!"
       })
     })
-}
+};
+
+exports.updateFood = (req, res) => {
+  const id = req.params.id;
+
+  Food.update(req.body, {
+    where: { id_makanan: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.status(200).send({
+          message: "Food successfully updated!",
+        });
+      } else {
+        res.status(404).send({
+          message: "Food not found",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred!",
+      });
+    });
+};

@@ -41,13 +41,16 @@ module.exports = (app) => {
   router.post("/food/new", foods.addFood);
 
   // Get All food
-  router.get("/food", foods.getAllFoodsByDiseases);
+  // router.get("/food", foods.getAllFoodsByDiseases);
 
   // Get food by search
   router.get("/food/search", foods.searchFoods);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);
+
+  // edit a food
+  router.put("/food/edit/:id", foods.updateFood);
 
   // upload images
   router.post("/upload", images.multer.single("file"), images.uploadFile);
