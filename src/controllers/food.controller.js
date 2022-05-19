@@ -28,7 +28,8 @@ exports.addFood = (req, res)=>{
 
 exports.searchFoods = (req, res) => {
   const {disease} = req.query;
-  let condition = disease ? {good_for: {[Op.like]: `${disease}%`}} : null
+  let condition = disease ? {[Op.or]: [{good_for: {[Op.like]:`%${disease}%`}}, {bad_for: {[Op.like]:`%${disease}%`}}]} : null;
+
   Food.findAll({where: condition})
   .then(data => {
     res.send(data);
@@ -38,6 +39,7 @@ exports.searchFoods = (req, res) => {
       message:
         err.message || "Some error occurred while retrieving foods."
     });
+
   });
 };
 
