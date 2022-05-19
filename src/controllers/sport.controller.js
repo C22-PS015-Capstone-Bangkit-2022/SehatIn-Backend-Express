@@ -74,3 +74,27 @@ exports.getAllSports = (req, res) => {
         })
       })
   }
+
+  exports.updateSport = (req, res) => {
+    const id = req.params.id;
+  
+    Sport.update(req.body, {
+      where: { id_sport: id },
+    })
+      .then((num) => {
+        if (num == 1) {
+          res.status(200).send({
+            message: "Sport successfully updated!",
+          });
+        } else {
+          res.status(404).send({
+            message: "sport not found",
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Some error occurred!",
+        });
+      });
+  };
