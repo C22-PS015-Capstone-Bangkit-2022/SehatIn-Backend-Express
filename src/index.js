@@ -4,7 +4,19 @@ const bodyParser = require("body-parser");
 const expressFileUpload = require("express-fileupload");
 //Firebase middleware
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
-initializeApp({ credential: applicationDefault() });
+const admin = require('firebase-admin');
+
+let googleKeyFile = "";
+if (process.env.NODE_ENV === "production") {
+    googleKeyFile = "../google-credentials.json"
+}else{
+    //your own location on your dev machine
+    googleKeyFile = process.env.GOOGLE_PRIVATE_KEY
+}
+const serviceAccount = require(googleKeyFile);
+initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 const { getAuth } = require("firebase-admin/auth");
 const firebaseAuth = getAuth();
 
@@ -20,7 +32,7 @@ const PORT = process.env.PORT || 3300;
 const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 
 let corsOptions = {
-    origin: '*'
+    origin: "*"
 };
 
 require("dotenv").config();
@@ -66,15 +78,22 @@ app.get("/", (req, res) => {
 //Testing middleware firebase
 app.get(
   "/data/:organisationID",
-  // Add authorization middleware to ensure users can only access data of their own organization.
-  // Checks that the specified organizationID in the URL matches user's own organizationID value in their token.
-  authMiddleWare.authz((token, req) => token.org === req.params.organisationID),
+    authMiddleWare.authn(firebaseAuth),
 
   // This route handler will only run if the predicate above returns true!
   (req, res) => {
     console.log("Decoded token: ", req.authenticatedUser);
+    if(req.authenticatedUser.admin){
+        res.status(200).send({
+            message: "You are admin"
+        });;
+    }else{
+        res.status(200).send({
+            message: "You are not admin"
+        });;
+    }
 
-    res.status(200).end();
+
   }
 );
 
