@@ -20,13 +20,15 @@ const PORT = process.env.PORT || 3300;
 const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 
 let corsOptions = {
-  origin: ["*"],
+    origin: '*'
 };
 
 require("dotenv").config();
 
 //use cors
 app.use(cors(corsOptions));
+
+
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
