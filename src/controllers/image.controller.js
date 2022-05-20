@@ -33,10 +33,17 @@ const app = express();
 
 const DIR_NAME = "ARTICLE_IMAGE";
 
+let googleKeyFile = "";
+if (process.env.NODE_ENV === "production") {
+  googleKeyFile = "../google-credentials.json"
+}else{
+  //your own location on your dev machine
+  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY
+}
 // firebase init
 const storage = new Storage({
   projectId: "sehatin-eab72",
-  keyFilename: process.env.GOOGLE_PRIVATE_KEY,
+  keyFilename: googleKeyFile,
 });
 const bucket = storage.bucket("gs://sehatin-eab72.appspot.com");
 
