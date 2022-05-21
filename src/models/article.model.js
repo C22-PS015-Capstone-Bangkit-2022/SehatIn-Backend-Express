@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Article = sequelize.define(
-    "artikel",
+    "article",
     {
       judul: {
         type: Sequelize.STRING,
@@ -34,10 +34,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
     },
-    {
-      createdAt: false,
-      updatedAt: false,
-    }
   );
   return Article;
 };
