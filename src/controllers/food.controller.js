@@ -46,7 +46,7 @@ exports.searchFoods = (req, res) => {
   });
 };
 
-exports.allFoodByDisease = (req, res) => {
+exports.allFoodsByDisease = (req, res) => {
   disease.findAll({
     include : [{
       model : foodGoodFor,
@@ -65,20 +65,6 @@ exports.allFoodByDisease = (req, res) => {
       });
     });
 }
-
-// exports.getAllFoodsByDiseases = (req, res) => {
-//   Food.findAll({where: condition})
-//   .then(data => {
-//     res.send(data);
-//   })
-//   .catch(err => {
-//     res.status(500).send({
-//       message:
-//         err.message || "Some error occurred while retrieving foods."
-//     });
-
-//   });
-// }
 
 exports.deleteFood = (req, res) => {
   const id = req.params.id;
