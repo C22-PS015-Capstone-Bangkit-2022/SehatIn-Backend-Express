@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Food = sequelize.define("food", {
-        nama_makanan: {
+        name: {
             type: Sequelize.STRING
         },
         energy: {
@@ -18,10 +18,10 @@ module.exports = (sequelize, Sequelize) => {
         carbs: {
             type: Sequelize.FLOAT
         },
-        tipe_makanan: {
+        type_food: {
             type: Sequelize.STRING
         },
-        id_makanan: {
+        id_food: {
             type: Sequelize.INTEGER,
             unique: true,
             primaryKey: true,
