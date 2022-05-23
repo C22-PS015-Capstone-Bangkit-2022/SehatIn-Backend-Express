@@ -1,5 +1,7 @@
 const db = require("../models");
+const disease = db.disease;
 const Food = db.foods;
+const foodGoodFor = db.foodGoodFor;
 const Op = db.Sequelize.Op;
 
 
@@ -42,6 +44,27 @@ exports.searchFoods = (req, res) => {
 
   });
 };
+
+exports.allFood = (req, res) => {
+  disease.findAll({
+    include : {
+      model : foodGoodFor, 
+      attributes : ["id_food", "id_disease"],
+      include: {
+        model: Food,
+        attributes: ["id_makanan", "nama_makanan"]
+      }
+    },
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving disease."
+      });
+    });
+}
 
 // exports.getAllFoodsByDiseases = (req, res) => {
 //   Food.findAll({where: condition})

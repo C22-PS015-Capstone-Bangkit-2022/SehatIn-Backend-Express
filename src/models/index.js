@@ -29,7 +29,8 @@ db.images = require("./image.model.js")(sequelize, Sequelize);
 db.foodGoodFor = require("./foodGoodFor.model")(sequelize, Sequelize);
 db.foodBadFor = require("./foodBadFor.model")(sequelize, Sequelize);
 
-db.disease.hasMany(db.foodGoodFor, {as:"goodFor"})
+db.disease.hasMany(db.foodGoodFor, {foreignKey: 'id_disease'})
+db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_makanan'})
 db.disease.hasMany(db.foodBadFor, {as:"badFor"})
 // db.foodGoodFor.belongsTo(db.disease, {
 //     foreignKey: "id_penyakit",

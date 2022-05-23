@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/form-data
 app.use(expressFileUpload());
 
-db.sequelize.sync();
+db.sequelize.sync({alter: true});
 
 // db.sequelize.sync({force: true}).then(() => {
 //     for(let i = 1; i<= 25; i++){
