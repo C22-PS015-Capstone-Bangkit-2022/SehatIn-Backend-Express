@@ -6,14 +6,14 @@ const Op = db.Sequelize.Op;
 
 
 exports.addFood = (req, res)=>{
-  if(!req.body.nama_makanan) {
+  if(!req.body.name) {
     res.status(400).send({
       message: "Name can not be empty"
     });
     return;
   }
 
-  const food = {nama_makanan, energy, avg_portion, tipe_makanan, good_for, bad_for, fat, protein, carbs} = req.body;
+  const food = {name, energy, avg_portion, tipe_makanan, fat, protein, carbs} = req.body;
 
   // create food
   Food.create(food)
@@ -48,11 +48,11 @@ exports.searchFoods = (req, res) => {
 exports.allFood = (req, res) => {
   disease.findAll({
     include : {
-      model : foodGoodFor, 
+      model : foodGoodFor,
       attributes : ["id_food", "id_disease"],
       include: {
         model: Food,
-        attributes: ["id_makanan", "nama_makanan"]
+        attributes: ["id_food", "name"]
       }
     },
   })
@@ -84,7 +84,7 @@ exports.deleteFood = (req, res) => {
   const id = req.params.id;
 
   Food.destroy({
-    where: { id_makanan: id}
+    where: { id_food: id}
   })
     .then(num => {
       if (num == 1){
@@ -108,7 +108,7 @@ exports.updateFood = (req, res) => {
   const id = req.params.id;
 
   Food.update(req.body, {
-    where: { id_makanan: id },
+    where: { id_food: id },
   })
     .then((num) => {
       if (num == 1) {
