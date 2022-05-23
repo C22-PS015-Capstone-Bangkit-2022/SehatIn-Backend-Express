@@ -2,6 +2,7 @@ const db = require("../models");
 const disease = db.disease;
 const Food = db.foods;
 const foodGoodFor = db.foodGoodFor;
+const foodBadFor = db.foodBadFor;
 const Op = db.Sequelize.Op;
 
 
@@ -45,13 +46,15 @@ exports.searchFoods = (req, res) => {
   });
 };
 
-exports.allFood = (req, res) => {
+exports.allFoodByDisease = (req, res) => {
   disease.findAll({
-    include : {
+    include : [{
       model : foodGoodFor,
-      attributes : ["id_food", "id_disease"],
       include: ["foods"]
-    },
+    },{
+      model: foodBadFor,
+      include: ["foods"]
+    }]
   })
     .then(data => {
       res.send(data);
