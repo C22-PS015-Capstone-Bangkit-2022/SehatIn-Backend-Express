@@ -47,7 +47,7 @@ module.exports = (app) => {
   router.get("/food/search", foods.searchFoods);
 
   // Get food
-  router.get("/allfood", foods.allFood);
+  router.get("/food/all", foods.allFood);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);
