@@ -30,8 +30,12 @@ db.foodGoodFor = require("./foodGoodFor.model")(sequelize, Sequelize);
 db.foodBadFor = require("./foodBadFor.model")(sequelize, Sequelize);
 
 db.disease.hasMany(db.foodGoodFor, {foreignKey: 'id_disease'})
-db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_food'})
-db.disease.hasMany(db.foodBadFor, {as:"badFor"})
+db.foodGoodFor.belongsTo(db.foods, {
+    foreignKey: "id_food",
+    as: "foods",
+});
+//db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_food'})
+//db.disease.hasMany(db.foodBadFor, {as:"badFor"})
 // db.foodGoodFor.belongsTo(db.disease, {
 //     foreignKey: "id_penyakit",
 //     as: "disease",
