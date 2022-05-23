@@ -34,6 +34,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
     },
+    {
+      timestamps: false
+    }
   );
   return Article;
 };
