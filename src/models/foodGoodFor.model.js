@@ -2,10 +2,13 @@ const { disease, foods } = require(".");
 
 module.exports = (sequelize, Sequelize) => {
     const foodGoodFor = sequelize.define("foodGoodFor", {
-            id_food : {
+            id : {
                 type : Sequelize.INTEGER,
                 primaryKey : true,
                 autoIncrement: true
+            },
+            id_food : {
+                type : Sequelize.INTEGER
             },
             id_disease: {
                 type : Sequelize.INTEGER
