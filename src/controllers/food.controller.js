@@ -50,10 +50,7 @@ exports.allFood = (req, res) => {
     include : {
       model : foodGoodFor,
       attributes : ["id_food", "id_disease"],
-      include: {
-        model: Food,
-        attributes: ["id_food", "name"]
-      }
+      include: ["foods"]
     },
   })
     .then(data => {
