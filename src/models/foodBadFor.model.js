@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
             id : {
                 type : Sequelize.INTEGER,
                 primaryKey : true,
-                autoIncrement: true
+                autoIncrement: true,
+                unique: true,
             },
             id_food : {
                 type : Sequelize.INTEGER
