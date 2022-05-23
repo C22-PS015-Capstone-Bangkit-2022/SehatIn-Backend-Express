@@ -11,7 +11,10 @@ module.exports = (app) => {
   const router = require("express").Router();
 
   /* DISEASE */
-  router.get("/disease", disease.findAll);
+  router.get("/disease/screening", disease.findAllWithScreening);
+  router.get("/disease/all", disease.findAll)
+  router.get("/disease/:id",disease.findDiseaseById)
+  router.get("/disease/:id/screening",disease.findDiseaseWithScreeningByID)
 
   /* USER */
   router.get("/user", user.findAll);
