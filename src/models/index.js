@@ -53,6 +53,7 @@ db.foodBadFor.belongsTo(db.foods, {
 db.disease.hasMany(db.screening_question,{
     foreignKey : "untuk_penyakit"
 });
+//db.screening_question.belongsTo(db.disease,{foreignKey: "untuk_penyakit",as:"disease"})
 
 // db.screening_question.belongsTo(db.disease);
 
