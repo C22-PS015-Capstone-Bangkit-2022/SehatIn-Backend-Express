@@ -43,9 +43,6 @@ module.exports = (app) => {
   // Create a food
   router.post("/food/new", foods.addFood);
 
-  // Get All food
-  // router.get("/food", foods.getAllFoodsByDiseases);
-
   // Get food
   router.get("/food/all", foods.allFoodsByDisease);
 
