@@ -6,6 +6,9 @@ const sports = require("../controllers/sport.controller");
 const screening_question = require("../controllers/screening_question.controller");
 const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
+const authMiddleWare = require("firebase-auth-express-middleware");
+const { getAuth } = require("firebase-admin/auth");
+const firebaseAuth = getAuth();
 
 module.exports = (app) => {
   const router = require("express").Router();
@@ -13,8 +16,10 @@ module.exports = (app) => {
   /* DISEASE */
   router.get("/disease/screening", disease.findAllWithScreening);
   router.get("/disease/all", disease.findAll)
-  router.get("/disease/:id",disease.findDiseaseById)
-  router.get("/disease/:id/screening",disease.findDiseaseWithScreeningByID)
+  router.get("/disease/find/:id",disease.findDiseaseById)
+  router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID)
+  router.get("/disease/allGoodFood",disease.getAllGoodFood)
+  router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood)
 
   /* USER */
   router.get("/user", user.findAll);
