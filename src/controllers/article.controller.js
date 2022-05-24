@@ -22,8 +22,8 @@ exports.addArticle = (req, res) => {
     judul: req.body.judul, 
     isi_artikel: req.body.isi_artikel, 
     thumbnail_image: req.body.thumbnail_image, 
-    source: req.body.source, 
     tag: req.body.tag, 
+    source_link: req.body.source_link, 
     source_name: req.body.source_name,
     created_at
   }

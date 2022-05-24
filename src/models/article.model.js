@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
       thumbnail_image: {
         type: Sequelize.STRING,
       },
-      source: {
+      source_link: {
         type: Sequelize.STRING,
       },
       source_name: {
