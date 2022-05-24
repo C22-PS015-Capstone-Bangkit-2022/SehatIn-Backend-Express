@@ -2,42 +2,44 @@ const dbConfig = require("../config/db.config");
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
+  host: dbConfig.HOST,
+  dialect: dbConfig.dialect,
 
-    pool: {
-        max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle
-    }
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle,
+  },
 });
 
-const db={};
+const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-
 
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.disease = require("./disease.model")(sequelize, Sequelize);
 db.foods = require("./food.model")(sequelize, Sequelize);
 db.articles = require("./article.model")(sequelize, Sequelize);
-db.screening_question = require("./screening_question.model")(sequelize, Sequelize);
+db.screening_question = require("./screening_question.model")(
+  sequelize,
+  Sequelize
+);
 db.sport = require("./sport.model")(sequelize, Sequelize);
 db.images = require("./image.model.js")(sequelize, Sequelize);
 db.foodGoodFor = require("./foodGoodFor.model")(sequelize, Sequelize);
 db.foodBadFor = require("./foodBadFor.model")(sequelize, Sequelize);
 
-db.disease.hasMany(db.foodGoodFor, {foreignKey: 'id_disease'})
+db.disease.hasMany(db.foodGoodFor, { foreignKey: "id_disease" });
 db.foodGoodFor.belongsTo(db.foods, {
-    foreignKey: "id_food",
-    as: "foods",
+  foreignKey: "id_food",
+  as: "goodFoods",
 });
-db.disease.hasMany(db.foodBadFor, {foreignKey: 'id_disease'})
+db.disease.hasMany(db.foodBadFor, { foreignKey: "id_disease" });
 db.foodBadFor.belongsTo(db.foods, {
-    foreignKey: "id_food",
-    as: "foods",
+  foreignKey: "id_food",
+  as: "badFoods",
 });
 
 //db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_food'})
@@ -50,8 +52,8 @@ db.foodBadFor.belongsTo(db.foods, {
 //     foreignKey: "id_penyakit",
 //     as: "disease",
 // });
-db.disease.hasMany(db.screening_question,{
-    foreignKey : "untuk_penyakit"
+db.disease.hasMany(db.screening_question, {
+  foreignKey: "untuk_penyakit",
 });
 //db.screening_question.belongsTo(db.disease,{foreignKey: "untuk_penyakit",as:"disease"})
 
