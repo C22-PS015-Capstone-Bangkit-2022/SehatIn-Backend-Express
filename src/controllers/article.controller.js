@@ -24,6 +24,7 @@ exports.addArticle = (req, res) => {
     thumbnail_image: req.body.thumbnail_image, 
     source: req.body.source, 
     tag: req.body.tag, 
+    source_name: req.body.source_name,
     created_at
   }
 
@@ -105,7 +106,7 @@ const getPagingData = (data, page, limit) => {
 
 exports.getAllArticles = (req, res) => {
   const { page, size, title } = req.query;
-  var condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
+  let condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 

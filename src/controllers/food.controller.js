@@ -1,5 +1,5 @@
 const db = require("../models");
-const disease = db.disease;
+const Disease = db.disease;
 const Food = db.foods;
 const foodGoodFor = db.foodGoodFor;
 const foodBadFor = db.foodBadFor;
@@ -29,32 +29,33 @@ exports.addFood = (req, res)=>{
     });
 }
 
-exports.searchFoods = (req, res) => {
-  const {disease} = req.query;
-  let condition = disease ? {[Op.or]: [{good_for: {[Op.like]:`%${disease}%`}}, {bad_for: {[Op.like]:`%${disease}%`}}]} : null;
+// exports.searchFoods = (req, res) => {
+//   const {disease} = req.query;
+//   let condition = disease ?{[Op.or]: [{good_for: {[Op.like]:`%$ {disease}%`}}, {bad_for: {[Op.like]:`%${disease}%`}}]} : null;
 
-  Food.findAll({where: condition})
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving foods."
-    });
+//   Food.findAll({where: condition})
+//   .then(data => {
+//     res.send(data);
+//   })
+//   .catch(err => {
+//     res.status(500).send({
+//       message:
+//         err.message || "Some error occurred while retrieving foods."
+//     });
 
-  });
-};
+//   });
+// };
 
 exports.allFoodsByDisease = (req, res) => {
-  disease.findAll({
-    include : [{
+  Disease.findAll({
+      include : [
+      {
       model : foodGoodFor,
       include: ["foods"]
     },{
       model: foodBadFor,
       include: ["foods"]
-    }]
+      }]
   })
     .then(data => {
       res.send(data);

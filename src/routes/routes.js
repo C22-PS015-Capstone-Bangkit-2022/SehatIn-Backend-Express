@@ -34,7 +34,7 @@ module.exports = (app) => {
   router.post("/articles/new", articles.addArticle);
 
   // Update an Article
-  router.put("/articles/:id", articles.updateArticle);
+  router.put("/articles/edit/:id", articles.updateArticle);
 
   // Delete an Article
   router.delete("/articles/delete/:id", articles.deleteArticle);
@@ -46,11 +46,8 @@ module.exports = (app) => {
   // Get All food
   // router.get("/food", foods.getAllFoodsByDiseases);
 
-  // Get food by search
-  router.get("/food/search", foods.searchFoods);
-
   // Get food
-  router.get("/food/all", foods.allFoodByDisease);
+  router.get("/food/all", foods.allFoodsByDisease);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);

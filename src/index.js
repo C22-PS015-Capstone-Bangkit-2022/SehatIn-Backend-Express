@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type - application/form-data
-// app.use(expressFileUpload());
+app.use(expressFileUpload());
 
 db.sequelize.sync({alter: true});
 
