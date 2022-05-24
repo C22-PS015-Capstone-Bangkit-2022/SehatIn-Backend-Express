@@ -19,6 +19,7 @@ module.exports = (app) => {
   router.get("/disease/find/:id",disease.findDiseaseById)
   router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID)
   router.get("/disease/allGoodFood",disease.getAllGoodFood)
+  router.get("/disease/allBadFood",disease.getAllBadFood)
   router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood)
 
   /* USER */
