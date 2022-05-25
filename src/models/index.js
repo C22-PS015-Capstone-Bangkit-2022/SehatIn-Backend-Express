@@ -36,10 +36,23 @@ db.foodGoodFor.belongsTo(db.foods, {
   foreignKey: "id_food",
   as: "goodFoods",
 });
+
 db.disease.hasMany(db.foodBadFor, { foreignKey: "id_disease" });
 db.foodBadFor.belongsTo(db.foods, {
   foreignKey: "id_food",
   as: "badFoods",
+});
+
+db.foods.hasMany(db.foodBadFor, { foreignKey: "id_food" });
+db.foodBadFor.belongsTo(db.disease, {
+  foreignKey: "id_disease",
+  as: "foodsBadFor",
+});
+
+db.foods.hasMany(db.foodGoodFor, { foreignKey: "id_food" });
+db.foodGoodFor.belongsTo(db.disease, {
+  foreignKey: "id_disease",
+  as: "foodsGoodFor",
 });
 
 //db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_food'})
