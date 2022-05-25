@@ -51,7 +51,10 @@ module.exports = (app) => {
   router.post("/food/new", foods.addFood);
 
   // Get food
-  router.get("/food/all", foods.allFoodsByDisease);
+  // router.get("/food/all", foods.allFoodsByDisease);
+  
+  // Get food
+  router.get("/food/search", foods.searchFoods);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);
