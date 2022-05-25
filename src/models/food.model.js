@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
     const Food = sequelize.define("food", {
+        id_food: {
+            type: Sequelize.INTEGER,
+            unique: true,
+            primaryKey: true,
+            autoIncrement: true
+        },
         name: {
             type: Sequelize.STRING
         },
@@ -20,13 +26,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         type_food: {
             type: Sequelize.STRING
-        },
-        id_food: {
-            type: Sequelize.INTEGER,
-            unique: true,
-            primaryKey: true,
-            autoIncrement: true
-        },
+        }, 
+        thumbnail_image: {
+            type: Sequelize.STRING,
+        }
     },
         {
             createdAt: false,

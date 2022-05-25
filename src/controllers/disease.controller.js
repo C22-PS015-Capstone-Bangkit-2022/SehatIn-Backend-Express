@@ -56,9 +56,9 @@ exports.searchById = (req, res) => {
       res.status(500).send({
         message: "Some error occurred while retrieving disease.",
       });
-    });
-  }else {
-    return res.send([])
+    })
+  } else {
+    return res.send([]);
   }
 
   console.log(id);
@@ -147,14 +147,22 @@ exports.getMyGoodFood = (req, res) => {
               include: ["goodFoods"],
             })
             .then((data) => {
-              res.send(data.map((food) => food.foods));
+              res.send({
+                message: "Success",
+                error: null,
+                ok: true,
+                food: data.map((food) => food.foods),
+              });
             })
             .catch((err) => {
-              console.log("Get All Good Food Error : ", err);
+              console.log("Get My Good Food Error : ", err);
               res.status(500).send({
                 message:
                   err.message ||
-                  "Some error occurred while retrieving disease.",
+                  "Some error occurred while retrieving good food for user disease.",
+                error:
+                  "Error retrieving data from database [User don't have diseases]",
+                ok: false,
               });
             });
         } else {
@@ -174,21 +182,27 @@ exports.getMyGoodFood = (req, res) => {
                   include: ["badFoods"],
                 })
                 .then((data2) => {
-                  res.send(
-                    array.differenceBy(
+                  res.send({
+                    message: "Success",
+                    error: null,
+                    ok: true,
+                    food: array.differenceBy(
                       data.map((food) => food.goodFoods),
                       data2.map((food) => food.badFoods),
                       "id_food"
-                    )
-                  );
+                    ),
+                  });
                 });
             })
             .catch((err) => {
               console.log("Get my Good Food Error : ", err);
               res.status(500).send({
+                ok: false,
                 message:
                   err.message ||
                   "Some error occurred while retrieving disease.",
+                error:
+                  "Error retrieving data from database [User have diseases]",
               });
             });
         }

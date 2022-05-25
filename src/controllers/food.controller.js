@@ -29,63 +29,53 @@ exports.addFood = (req, res)=>{
     });
 }
 
-// exports.allFoodsByDisease = (req, res) => {
-//   Disease.findAll({
-//       include : [
-//       {
-//       model : foodGoodFor,
-//       include: ["goodFoods"]
-//     },{
-//       model: foodBadFor,
-//       include: ["badFoods"]
-//       }]
-//   })
-//     .then(data => {
-//       res.send(data);
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while retrieving disease."
-//       });
-//     });
-// }
-
-exports.searchFoods = (req, res) => {
-  // Food.findAll({include : 
-  //   {
-  //   model : foodBadFor,
-  //   include: ["foodsBadFor"]
-  // }
-  // })
-  //   .then(data => {
-  //     res.send(data);
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message: err.message || "Some error occurred while retrieving disease."
-  //     });
-  //   });
-  Food.findAll({
-    include : [
-      {
-        model : foodBadFor,
-        include: ["foodsBadFor"]
-      },
-      {
-        model: foodGoodFor,
-        include: ["foodsGoodFor"]
-      }
-
-    ]
-  })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: err.message || "Some error occurred while retrieving disease."
+exports.allFoods = (req, res) => {
+  const {food} = req.query;
+  if(food){
+    Food.findAll({ where: {name: {[Op.iLike]: `%${food}`}},
+      include : [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"]
+        },
+        {
+          model : foodBadFor,
+          include: ["foodsBadFor"]
+        }
+  
+      ]
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving disease."
+      });
     });
-  });
+  } else{
+    Food.findAll({
+      include : [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"]
+        },
+        {
+          model : foodBadFor,
+          include: ["foodsBadFor"]
+        }
+  
+      ]
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving disease."
+      });
+    });
+  }
 };
 
 exports.deleteFood = (req, res) => {
