@@ -1,11 +1,10 @@
-const { screening_question } = require("../models");
+const { screening_question, disease } = require("../models");
 const db = require("../models");
 const foodGoodFor = db.foodGoodFor;
 const foodBadFor = db.foodBadFor;
 const query = db.disease;
 const admin = require("firebase-admin");
 const array = require("lodash/array");
-
 
 exports.findAllWithScreening = (req, res) => {
   query
@@ -41,12 +40,13 @@ exports.findAll = (req, res) => {
 };
 
 exports.searchById = (req, res) => {
-  const id  = req.body.id_penyakit;
+  const { id } = req.query;
   if (id) {
+    const idPenyakitSplit = id.split(",")
     query
     .findAll({
-      where :{
-        id_penyakit : id
+      where : {
+        id_penyakit : idPenyakitSplit
       }
     })
     .then((data) => {
@@ -60,8 +60,8 @@ exports.searchById = (req, res) => {
   }else {
     return res.send([])
   }
+
   console.log(id);
-  
 };
 
 exports.findDiseaseById = (req, res) => {
