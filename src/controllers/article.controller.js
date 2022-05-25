@@ -22,8 +22,9 @@ exports.addArticle = (req, res) => {
     judul: req.body.judul, 
     isi_artikel: req.body.isi_artikel, 
     thumbnail_image: req.body.thumbnail_image, 
-    source: req.body.source, 
     tag: req.body.tag, 
+    source_link: req.body.source_link, 
+    source_name: req.body.source_name,
     created_at
   }
 
@@ -47,7 +48,7 @@ exports.updateArticle = (req, res) => {
     where: { id_artikel: id },
   })
     .then((num) => {
-      if (num == 1) {
+      if (num === 1) {
         res.status(200).send({
           message: "Article successfully updated!",
         });
@@ -71,7 +72,7 @@ exports.deleteArticle = (req, res) => {
     where: { id_artikel: id },
   })
     .then((num) => {
-      if (num == 1) {
+      if (num === 1) {
         res.status(200).send({
           message: "Article successfully deleted!",
         });
@@ -105,7 +106,7 @@ const getPagingData = (data, page, limit) => {
 
 exports.getAllArticles = (req, res) => {
   const { page, size, title } = req.query;
-  var condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
+  let condition = title ? { judul: { [Op.like]: `%${title}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    const Food = sequelize.define("makanan", {
-        nama_makanan: {
+    const Food = sequelize.define("food", {
+        name: {
             type: Sequelize.STRING
         },
         energy: {
@@ -18,39 +18,19 @@ module.exports = (sequelize, Sequelize) => {
         carbs: {
             type: Sequelize.FLOAT
         },
-        tipe_makanan: {
+        type_food: {
             type: Sequelize.STRING
         },
-        good_for: {
-            type: Sequelize.STRING,
-            get() {
-                const value = this.getDataValue("good_for");
-                return value === null ? null : JSON.parse(value);
-              },
-              set(val) {
-                this.setDataValue("good_for", JSON.stringify(val ?? ""));
-              },
-        }, 
-        bad_for: {
-            type: Sequelize.STRING,
-            get() {
-                const value = this.getDataValue("bad_for");
-                return value === null ? null : JSON.parse(value);
-              },
-              set(val) {
-                this.setDataValue("bad_for", JSON.stringify(val ?? ""));
-              },
-        },
-        id_makanan: {
+        id_food: {
             type: Sequelize.INTEGER,
             unique: true,
             primaryKey: true,
             autoIncrement: true
         },
-    }, 
-    {
-        createdAt: false,
-        updatedAt: false
-    });
+    },
+        {
+            createdAt: false,
+            updatedAt: false
+        });
     return Food;
 };

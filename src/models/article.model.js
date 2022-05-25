@@ -1,7 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
   const Article = sequelize.define(
-    "artikel",
+    "article",
     {
+      
+      id_artikel: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       judul: {
         type: Sequelize.STRING,
       },
@@ -11,7 +18,10 @@ module.exports = (sequelize, Sequelize) => {
       thumbnail_image: {
         type: Sequelize.STRING,
       },
-      source: {
+      source_link: {
+        type: Sequelize.STRING,
+      },
+      source_name: {
         type: Sequelize.STRING,
       },
       tag: {
@@ -24,19 +34,12 @@ module.exports = (sequelize, Sequelize) => {
           this.setDataValue("tag", JSON.stringify(val ?? ""));
         },
       },
-      id_artikel: {
-        type: Sequelize.INTEGER,
-        unique: true,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       created_at: {
         type: Sequelize.STRING
       },
     },
     {
-      createdAt: false,
-      updatedAt: false,
+      timestamps: false
     }
   );
   return Article;

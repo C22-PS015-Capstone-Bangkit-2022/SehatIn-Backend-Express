@@ -1,21 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
-    const foodForDisease = sequelize.define("foodForDisease", {
+    const foodBadFor = sequelize.define("foodBadFor", {
             id : {
                 type : Sequelize.INTEGER,
                 primaryKey : true,
-                autoIncrement: true
+                autoIncrement: true,
+                unique: true,
             },
-            good_for : {
+            id_food : {
                 type : Sequelize.INTEGER
             },
-            bad_for: {
+            id_disease: {
                 type : Sequelize.INTEGER
             },
-            type: {
-                type : Sequelize.INTEGER //0 for bad food, 1 for good food
-            }
+        },
+        {
+            createdAt: false,
+            updatedAt: false
         },
     );
 
-    return foodForDisease;
+    return foodBadFor;
 };

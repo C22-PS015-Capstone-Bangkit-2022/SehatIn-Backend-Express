@@ -6,12 +6,21 @@ const sports = require("../controllers/sport.controller");
 const screening_question = require("../controllers/screening_question.controller");
 const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
+const authMiddleWare = require("firebase-auth-express-middleware");
+const { getAuth } = require("firebase-admin/auth");
+const firebaseAuth = getAuth();
 
 module.exports = (app) => {
   const router = require("express").Router();
 
   /* DISEASE */
-  router.get("/disease", disease.findAll);
+  router.get("/disease/screening", disease.findAllWithScreening);
+  router.get("/disease/all", disease.findAll)
+  router.get("/disease/find/:id",disease.findDiseaseById)
+  router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID)
+  router.get("/disease/allGoodFood",disease.getAllGoodFood)
+  router.get("/disease/allBadFood",disease.getAllBadFood)
+  router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood)
 
   /* USER */
   router.get("/user", user.findAll);
@@ -31,7 +40,7 @@ module.exports = (app) => {
   router.post("/articles/new", articles.addArticle);
 
   // Update an Article
-  router.put("/articles/:id", articles.updateArticle);
+  router.put("/articles/edit/:id", articles.updateArticle);
 
   // Delete an Article
   router.delete("/articles/delete/:id", articles.deleteArticle);
@@ -40,11 +49,8 @@ module.exports = (app) => {
   // Create a food
   router.post("/food/new", foods.addFood);
 
-  // Get All food
-  // router.get("/food", foods.getAllFoodsByDiseases);
-
-  // Get food by search
-  router.get("/food/search", foods.searchFoods);
+  // Get food
+  router.get("/food/all", foods.allFoodsByDisease);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);

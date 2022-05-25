@@ -27,7 +27,7 @@ const Article = db.articles;
 global.__basedir = "./";
 const app = express();
 const authMiddleWare = require("firebase-auth-express-middleware");
-const API_VERSION = "1.02";
+const API_VERSION = "1.03";
 const PORT = process.env.PORT || 3300;
 const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 
@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/form-data
 // app.use(expressFileUpload());
 
-db.sequelize.sync();
+db.sequelize.sync({alter: true});
 
 // db.sequelize.sync({force: true}).then(() => {
 //     for(let i = 1; i<= 25; i++){
@@ -84,6 +84,7 @@ app.get(
   (req, res) => {
     console.log("Decoded token: ", req.authenticatedUser);
     if(req.authenticatedUser.admin){
+        console.log(req.authenticatedUser.user_id)
         res.status(200).send({
             message: "You are admin"
         });;
