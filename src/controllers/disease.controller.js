@@ -5,6 +5,8 @@ const foodBadFor = db.foodBadFor;
 const query = db.disease;
 const admin = require("firebase-admin");
 const array = require("lodash/array");
+
+
 exports.findAllWithScreening = (req, res) => {
   query
     .findAll({
@@ -39,9 +41,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.searchById = (req, res) => {
-  const id  = req.body.id;
-  console.log(id);
-  query
+  const id  = req.body.id_penyakit;
+  if (id) {
+    query
     .findAll({
       where :{
         id_penyakit : id
@@ -55,6 +57,11 @@ exports.searchById = (req, res) => {
         message: "Some error occurred while retrieving disease.",
       });
     });
+  }else {
+    return res.send([])
+  }
+  console.log(id);
+  
 };
 
 exports.findDiseaseById = (req, res) => {
