@@ -110,7 +110,7 @@ exports.getAllArticles = (req, res) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  Article.findAndCountAll({ where: condition, limit, offset })
+  Article.findAndCountAll({ where: condition, limit, offset, order: [['id_artikel', 'DESC']] })
     .then((data) => {
       const response = getPagingData(data, page, limit);
       res.status(200).send(response);
