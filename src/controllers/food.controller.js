@@ -34,10 +34,10 @@ exports.allFoodsByDisease = (req, res) => {
       include : [
       {
       model : foodGoodFor,
-      include: ["foods"]
+      include: ["goodFoods"]
     },{
       model: foodBadFor,
-      include: ["foods"]
+      include: ["badFoods"]
       }]
   })
     .then(data => {
