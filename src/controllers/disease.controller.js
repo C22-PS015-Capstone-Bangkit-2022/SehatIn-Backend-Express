@@ -38,6 +38,25 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.searchById = (req, res) => {
+  const id  = req.body.id;
+  console.log(id);
+  query
+    .findAll({
+      where :{
+        id_penyakit : id
+      }
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Some error occurred while retrieving disease.",
+      });
+    });
+};
+
 exports.findDiseaseById = (req, res) => {
   const id = req.params.id;
   query

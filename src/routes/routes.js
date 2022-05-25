@@ -21,6 +21,7 @@ module.exports = (app) => {
   router.get("/disease/allGoodFood",disease.getAllGoodFood)
   router.get("/disease/allBadFood",disease.getAllBadFood)
   router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood)
+  router.get("/disease/searchById", disease.searchById)
 
   /* USER */
   router.get("/user", user.findAll);
