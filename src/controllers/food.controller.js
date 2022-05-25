@@ -29,17 +29,22 @@ exports.addFood = (req, res)=>{
     });
 }
 
-exports.allFoodsByDisease = (req, res) => {
-  Disease.findAll({
+exports.allFoods = (req, res) => {
+  const {food} = req.query;
+  if(food){
+    Food.findAll({ where: {name: {[Op.iLike]: `%${food}`}},
       include : [
-      {
-      model : foodGoodFor,
-      include: ["foods"]
-    },{
-      model: foodBadFor,
-      include: ["foods"]
-      }]
-  })
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"]
+        },
+        {
+          model : foodBadFor,
+          include: ["foodsBadFor"]
+        }
+  
+      ]
+    })
     .then(data => {
       res.send(data);
     })
@@ -48,7 +53,30 @@ exports.allFoodsByDisease = (req, res) => {
         message: err.message || "Some error occurred while retrieving disease."
       });
     });
-}
+  } else{
+    Food.findAll({
+      include : [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"]
+        },
+        {
+          model : foodBadFor,
+          include: ["foodsBadFor"]
+        }
+  
+      ]
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving disease."
+      });
+    });
+  }
+};
 
 exports.deleteFood = (req, res) => {
   const id = req.params.id;
