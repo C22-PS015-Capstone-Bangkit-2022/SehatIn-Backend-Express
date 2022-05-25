@@ -6,7 +6,6 @@ const query = db.disease;
 const admin = require("firebase-admin");
 const array = require("lodash/array");
 
-
 exports.findAllWithScreening = (req, res) => {
   query
     .findAll({
@@ -41,27 +40,26 @@ exports.findAll = (req, res) => {
 };
 
 exports.searchById = (req, res) => {
-  const id  = req.body.id_penyakit;
+  const id = req.body.id_penyakit;
   if (id) {
     query
-    .findAll({
-      where :{
-        id_penyakit : id
-      }
-    })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Some error occurred while retrieving disease.",
+      .findAll({
+        where: {
+          id_penyakit: id,
+        },
+      })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Some error occurred while retrieving disease.",
+        });
       });
-    });
-  }else {
-    return res.send([])
+  } else {
+    return res.send([]);
   }
   console.log(id);
-  
 };
 
 exports.findDiseaseById = (req, res) => {
@@ -149,7 +147,8 @@ exports.getMyGoodFood = (req, res) => {
             .then((data) => {
               res.send({
                 message: "Success",
-                error: false,
+                error: null,
+                ok: true,
                 food: data.map((food) => food.foods),
               });
             })
@@ -159,7 +158,9 @@ exports.getMyGoodFood = (req, res) => {
                 message:
                   err.message ||
                   "Some error occurred while retrieving good food for user disease.",
-                error: true,
+                error:
+                  "Error retrieving data from database [User don't have diseases]",
+                ok: false,
               });
             });
         } else {
@@ -181,7 +182,8 @@ exports.getMyGoodFood = (req, res) => {
                 .then((data2) => {
                   res.send({
                     message: "Success",
-                    error: false,
+                    error: null,
+                    ok: true,
                     food: array.differenceBy(
                       data.map((food) => food.goodFoods),
                       data2.map((food) => food.badFoods),
@@ -193,9 +195,12 @@ exports.getMyGoodFood = (req, res) => {
             .catch((err) => {
               console.log("Get my Good Food Error : ", err);
               res.status(500).send({
+                ok: false,
                 message:
                   err.message ||
                   "Some error occurred while retrieving disease.",
+                error:
+                  "Error retrieving data from database [User have diseases]",
               });
             });
         }
