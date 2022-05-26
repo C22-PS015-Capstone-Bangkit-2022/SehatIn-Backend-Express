@@ -42,21 +42,21 @@ exports.findAll = (req, res) => {
 exports.searchById = (req, res) => {
   const { id } = req.query;
   if (id) {
-    const idPenyakitSplit = id.split(",")
+    const idPenyakitSplit = id.split(",");
     query
-    .findAll({
-      where : {
-        id_penyakit : idPenyakitSplit
-      }
-    })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Some error occurred while retrieving disease.",
+      .findAll({
+        where: {
+          id_penyakit: idPenyakitSplit,
+        },
+      })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Some error occurred while retrieving disease.",
+        });
       });
-    })
   } else {
     return res.send([]);
   }
@@ -151,7 +151,7 @@ exports.getMyGoodFood = (req, res) => {
                 message: "Success",
                 error: null,
                 ok: true,
-                food: data.map((food) => food.foods),
+                food: data.map((food) => food.goodFoods),
               });
             })
             .catch((err) => {
