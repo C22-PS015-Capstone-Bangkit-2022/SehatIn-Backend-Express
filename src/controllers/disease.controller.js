@@ -141,7 +141,10 @@ exports.getMyGoodFood = (req, res) => {
     .then((docSnap) => {
       if (docSnap.exists) {
         console.log(docSnap.data());
-        if (docSnap.data().diseases === null) {
+        if (
+          docSnap.data().diseases === null ||
+          !docSnap.data().diseases?.length
+        ) {
           foodGoodFor
             .findAll({
               include: ["goodFoods"],
