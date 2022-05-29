@@ -116,6 +116,7 @@ exports.getAllGoodFood = (req, res) => {
       });
     });
 };
+
 exports.getAllBadFood = (req, res) => {
   foodBadFor
     .findAll({
