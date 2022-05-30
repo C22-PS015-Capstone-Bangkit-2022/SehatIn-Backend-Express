@@ -23,7 +23,6 @@ const firebaseAuth = getAuth();
 const db = require("./models/");
 const dbConfig = require("./config/db.config");
 const cors = require("cors");
-const Article = db.articles;
 global.__basedir = "./";
 const app = express();
 const authMiddleWare = require("firebase-auth-express-middleware");
@@ -39,8 +38,6 @@ require("dotenv").config();
 
 //use cors
 app.use(cors(corsOptions));
-
-
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
