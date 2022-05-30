@@ -4,18 +4,18 @@ const bodyParser = require("body-parser");
 const expressFileUpload = require("express-fileupload");
 //Firebase middleware
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
-const admin = require('firebase-admin');
+const admin = require("firebase-admin");
 
 let googleKeyFile = "";
 if (process.env.NODE_ENV === "production") {
-    googleKeyFile = "../google-credentials.json"
-}else{
-    //your own location on your dev machine
-    googleKeyFile = process.env.GOOGLE_PRIVATE_KEY
+  googleKeyFile = "../google-credentials.json";
+} else {
+  //your own location on your dev machine
+  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY;
 }
 const serviceAccount = require(googleKeyFile);
 initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 const { getAuth } = require("firebase-admin/auth");
 const firebaseAuth = getAuth();
@@ -27,20 +27,18 @@ const Article = db.articles;
 global.__basedir = "./";
 const app = express();
 const authMiddleWare = require("firebase-auth-express-middleware");
-const API_VERSION = "1.03";
+const API_VERSION = "1.04";
 const PORT = process.env.PORT || 3300;
 const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 
 let corsOptions = {
-    origin: "*"
+  origin: "*",
 };
 
 require("dotenv").config();
 
 //use cors
 app.use(cors(corsOptions));
-
-
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -51,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/form-data
 // app.use(expressFileUpload());
 
-db.sequelize.sync({alter: true});
+db.sequelize.sync({ alter: true });
 
 // db.sequelize.sync({force: true}).then(() => {
 //     for(let i = 1; i<= 25; i++){
@@ -78,20 +76,20 @@ app.get("/", (req, res) => {
 //Testing middleware firebase
 app.get(
   "/data/:organisationID",
-    authMiddleWare.authn(firebaseAuth),
+  authMiddleWare.authn(firebaseAuth),
 
   // This route handler will only run if the predicate above returns true!
   (req, res) => {
     console.log("Decoded token: ", req.authenticatedUser);
-    if(req.authenticatedUser.admin){
-        console.log(req.authenticatedUser.user_id)
-        res.status(200).send({
-            message: "You are admin"
-        });;
-    }else{
-        res.status(200).send({
-            message: "You are not admin"
-        });;
+    if (req.authenticatedUser.admin) {
+      console.log(req.authenticatedUser.user_id);
+      res.status(200).send({
+        message: "You are admin",
+      });
+    } else {
+      res.status(200).send({
+        message: "You are not admin",
+      });
     }
   }
 );
