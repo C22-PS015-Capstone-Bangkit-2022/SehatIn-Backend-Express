@@ -14,8 +14,8 @@ module.exports = (sequelize, Sequelize) => {
         energy: {
             type: Sequelize.FLOAT
         },
-        avg_duration: {
-            type: Sequelize.INTEGER
+        thumbnail_image: {
+            type: Sequelize.STRING
         }
     },
     {

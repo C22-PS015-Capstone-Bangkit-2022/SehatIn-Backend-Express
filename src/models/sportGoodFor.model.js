@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const foodGoodFor = sequelize.define("foodGoodFor", {
+    const sportGoodFor = sequelize.define("sportGoodFor", {
             id : {
                 type : Sequelize.INTEGER,
                 primaryKey : true,
                 unique: true,
                 autoIncrement: true
             },
-            id_food : {
+            id_sport : {
                 type : Sequelize.INTEGER
             },
             id_disease: {
@@ -19,5 +19,5 @@ module.exports = (sequelize, Sequelize) => {
         },
     );
 
-    return foodGoodFor;
+    return sportGoodFor;
 };
