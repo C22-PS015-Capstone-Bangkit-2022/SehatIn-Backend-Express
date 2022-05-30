@@ -35,10 +35,10 @@ const DIR_NAME = "ARTICLE_IMAGE";
 
 let googleKeyFile = "";
 if (process.env.NODE_ENV === "production") {
-  googleKeyFile = "../google-credentials.json"
-}else{
+  googleKeyFile = "./google-credentials.json";
+} else {
   //your own location on your dev machine
-  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY
+  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY_IMG;
 }
 // firebase init
 const storage = new Storage({
@@ -61,7 +61,7 @@ const uploadImageToStorage = (file) => {
     if (!file) {
       reject("No image file");
     }
-    let newFileName = `${file.originalname}_${Date.now()}`;
+    let newFileName = `${file.originalname.replace(/ /g, "_")}_${Date.now()}`;
 
     let fileUpload = bucket.file(DIR_NAME + "/" + newFileName);
 
@@ -75,10 +75,21 @@ const uploadImageToStorage = (file) => {
       reject(error);
     });
 
-    blobStream.on("finish", () => {
+    blobStream.on("finish", async () => {
       // The public URL can be used to directly access the file via HTTP.
       const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
-      resolve(url);
+      let result = { image: url };
+      try {
+        // Make the file public
+        await bucket.file(DIR_NAME + "/" + newFileName).makePublic();
+        resolve(result);
+      } catch {
+        result = {
+          message: `Uploaded the file successfully: ${newFileName}, but public access is denied!`,
+          image: url,
+        };
+        reject(result);
+      }
     });
 
     blobStream.end(file.buffer);
@@ -89,16 +100,14 @@ exports.uploadFile = (req, res) => {
   let file = req.file;
   if (file) {
     uploadImageToStorage(file)
-      .then((url) => {
-        return res.status(200).send({
-          image: url,
-        });
+      .then((result) => {
+        return res.status(200).send(result);
       })
       .catch((error) => {
-        // return res.status(500).send({
-        //   error: error,
-        // });
-        return console.log(error);
+        return res.status(500).send({
+          error: error,
+        });
+        // return console.log(error);
       });
   } else {
     return res.status(422).send({
