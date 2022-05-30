@@ -48,7 +48,7 @@ exports.updateArticle = (req, res) => {
     where: { id_artikel: id },
   })
     .then((num) => {
-      if (num === 1) {
+      if (num == 1) {
         res.status(200).send({
           message: "Article successfully updated!",
         });
