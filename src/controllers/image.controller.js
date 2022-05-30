@@ -35,10 +35,10 @@ const DIR_NAME = "ARTICLE_IMAGE";
 
 let googleKeyFile = "";
 if (process.env.NODE_ENV === "production") {
-  googleKeyFile = "../google-credentials.json"
-}else{
+  googleKeyFile = "./google-credentials.json";
+} else {
   //your own location on your dev machine
-  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY
+  googleKeyFile = process.env.GOOGLE_PRIVATE_KEY_IMG;
 }
 // firebase init
 const storage = new Storage({
