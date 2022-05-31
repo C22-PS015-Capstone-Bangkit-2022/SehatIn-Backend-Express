@@ -7,14 +7,14 @@ const Op = db.Sequelize.Op;
 
 
 exports.addFood = (req, res)=>{
-  if(!req.body.name) {
+  if(!req.body.nameId) {
     res.status(400).send({
       message: "Name can not be empty"
     });
     return;
   }
 
-  const food = {name, energy, avg_portion, tipe_makanan, fat, protein, carbs} = req.body;
+  const food = {nameId, nameEn, energy, avg_portion, tipe_makanan, fat, protein, carbs} = req.body;
 
   // create food
   Food.create(food)
@@ -32,7 +32,7 @@ exports.addFood = (req, res)=>{
 exports.allFoods = (req, res) => {
   const {food} = req.query;
   if(food){
-    Food.findAll({ where: {name: {[Op.iLike]: `%${food}`}},
+    Food.findAll({ where: {nameId: {[Op.iLike]: `%${food}`}},
       include : [
         {
           model: foodGoodFor,
