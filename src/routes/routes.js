@@ -15,13 +15,13 @@ module.exports = (app) => {
 
   /* DISEASE */
   router.get("/disease/screening", disease.findAllWithScreening);
-  router.get("/disease/all", disease.findAll)
-  router.get("/disease/find/:id",disease.findDiseaseById)
-  router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID)
-  router.get("/disease/allGoodFood",disease.getAllGoodFood)
-  router.get("/disease/allBadFood",disease.getAllBadFood)
-  router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood)
-  router.get("/disease/searchById", disease.searchById)
+  router.get("/disease/all", disease.findAll);
+  router.get("/disease/find/:id",disease.findDiseaseById);
+  router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID);
+  router.get("/disease/allGoodFood",disease.getAllGoodFood);
+  router.get("/disease/allBadFood",disease.getAllBadFood);
+  router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood);
+  router.get("/disease/searchById", disease.searchById);
 
   /* USER */
   router.get("/user", user.findAll);
@@ -68,6 +68,15 @@ module.exports = (app) => {
 
   // Retrieve all sports
   router.get("/sports", sports.getAllSports);
+
+  // Retrieve my sports
+  router.get("/sport/my/goodSport", authMiddleWare.authn(firebaseAuth),sports.getMyGoodSport);
+
+  // Retrieve all good sports
+  router.get("/sport/allGoodSport",sports.getAllGoodSport);
+
+  // Retrieve all bad sports
+  // router.get("/sport/allBadSport",sports.getAllBadSport);
   
   // Retrieve a sport by id
   router.get("/sports/:id", sports.getSportById);

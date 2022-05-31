@@ -1,6 +1,11 @@
 const db = require("../models");
 const Sport = db.sport;
+const sportGoodFor = db.sportGoodFor;
+const sportBadFor = db.sportBadFor;
+const diseases = db.disease;
 const Op = db.Sequelize.Op;
+const admin = require("firebase-admin");
+const array = require("lodash/array");
 
 exports.addSport = (req, res)=>{
     if(!req.body.activity) {
@@ -51,7 +56,7 @@ exports.getAllSports = (req, res) => {
       });
   };
 
-  exports.deleteSport = (req, res) => {
+ exports.deleteSport = (req, res) => {
     const id = req.params.id;
   
     Sport.destroy({
@@ -98,3 +103,117 @@ exports.getAllSports = (req, res) => {
         });
       });
   };
+
+
+exports.getAllGoodSport = (req, res) => {
+  sportGoodFor
+    .findAll({
+      include: ["goodSports"],
+    })
+    .then((data) => {
+      res.send(data.map((sport) => sport.goodSports));
+    })
+    .catch((err) => {
+      console.log("Get All Good Sport Error : ", err);
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving disease.",
+      });
+    });
+};
+  
+// exports.getAllBadSport = (req, res) => {
+//   sportBadFor
+//     .findAll({
+//       include: ["badSports"],
+//     })
+//     .then((data) => {
+//       res.send(data.map((sport) => sport.badSports));
+//     })
+//     .catch((err) => {
+//       console.log("Get All Good Sport Error : ", err);
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving disease.",
+//       });
+//     });
+// };
+  
+exports.getMyGoodSport = (req, res) => {
+  admin
+    .firestore()
+    .collection("User")
+    .doc(req.authenticatedUser.uid)
+    .get()
+    .then((docSnap) => {
+      if (docSnap.exists) {
+        console.log(docSnap.data());
+        if (
+          docSnap.data().diseases === null ||
+          !docSnap.data().diseases?.length
+        ) {
+          sportGoodFor
+            .findAll({
+              include: ["goodSports"],
+            })
+            .then((data) => {
+              res.send({
+                message: "Success",
+                error: null,
+                ok: true,
+                sport: data.map((sport) => sport.goodSports),
+              });
+            })
+            .catch((err) => {
+              console.log("Get My Good Sport Error : ", err);
+              res.status(500).send({
+                message:
+                  err.message ||
+                  "Some error occurred while retrieving good sport for user disease.",
+                error:
+                  "Error retrieving data from database [User don't have diseases]",
+                ok: false,
+              });
+            });
+          } else {
+          sportGoodFor
+            .findAll({
+              where: {
+                id_disease: docSnap.data().diseases, // find all good from from all user diseases
+              },
+              include: ["goodSports"],
+            })
+            .then((data) => {
+              sportBadFor
+                .findAll({
+                  where: {
+                    id_disease: docSnap.data().diseases, // find all good from from all user diseases
+                  },
+                  include: ["badSports"],
+                })
+                .then((data2) => {
+                  res.send({
+                    message: "Success",
+                    error: null,
+                    ok: true,
+                    sport: array.differenceBy(
+                      data.map((sport) => sport.goodSports),
+                      data2.map((sport) => sport.badSports),
+                      "id_sport"
+                    ),
+                  });
+                });
+            })
+            .catch((err) => {
+              console.log("Get my Good Sport Error : ", err);
+              res.status(500).send({
+                ok: false,
+                message:
+                  err.message ||
+                  "Some error occurred while retrieving disease.",
+                error:
+                  "Error retrieving data from database [User have diseases]",
+              });
+            });
+        }
+      }
+    });
+};  
