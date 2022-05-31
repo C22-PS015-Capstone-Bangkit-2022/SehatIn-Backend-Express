@@ -61,7 +61,7 @@ const uploadImageToStorage = (file) => {
     if (!file) {
       reject("No image file");
     }
-    let newFileName = `${file.originalname.replace(/ /g, "_")}_${Date.now()}`;
+    let newFileName = `${Date.now()}_${file.originalname.replace(/ /g, "_")}`;
 
     let fileUpload = bucket.file(DIR_NAME + "/" + newFileName);
 
