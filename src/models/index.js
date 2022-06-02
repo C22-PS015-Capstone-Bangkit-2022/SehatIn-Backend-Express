@@ -18,6 +18,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.doctor = require("./doctor.model")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.disease = require("./disease.model")(sequelize, Sequelize);
 db.foods = require("./food.model")(sequelize, Sequelize);

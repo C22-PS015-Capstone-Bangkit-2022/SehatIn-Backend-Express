@@ -44,5 +44,5 @@ module.exports = (sequelize, Sequelize) => {
     }
     );
     
-    return Disease;
+    return doctor;
 };
