@@ -33,6 +33,7 @@ db.sportBadFor = require("./sportBadFor.model")(sequelize, Sequelize);
 db.images = require("./image.model.js")(sequelize, Sequelize);
 db.foodGoodFor = require("./foodGoodFor.model")(sequelize, Sequelize);
 db.foodBadFor = require("./foodBadFor.model")(sequelize, Sequelize);
+db.tag = require("./tag.model")(sequelize, Sequelize);
 
 db.disease.hasMany(db.foodGoodFor, { foreignKey: "id_disease" });
 db.foodGoodFor.belongsTo(db.foods, {
@@ -72,6 +73,10 @@ db.sportBadFor.belongsTo(db.sport, {
   as: "badSports",
 });
 
+db.disease.hasMany(db.screening_question, {
+  foreignKey: "untuk_penyakit",
+});
+
 //db.foodGoodFor.hasOne(db.foods, {foreignKey: 'id_food'})
 //db.disease.hasMany(db.foodBadFor, {as:"badFor"})
 // db.foodGoodFor.belongsTo(db.disease, {
@@ -82,9 +87,7 @@ db.sportBadFor.belongsTo(db.sport, {
 //     foreignKey: "id_penyakit",
 //     as: "disease",
 // });
-db.disease.hasMany(db.screening_question, {
-  foreignKey: "untuk_penyakit",
-});
+
 //db.screening_question.belongsTo(db.disease,{foreignKey: "untuk_penyakit",as:"disease"})
 
 // db.screening_question.belongsTo(db.disease);
