@@ -3,6 +3,7 @@ const disease = require("../controllers/disease.controller");
 const articles = require("../controllers/article.controller");
 const foods = require("../controllers/food.controller");
 const sports = require("../controllers/sport.controller");
+const doctors = require("../controllers/doctor.controller");
 const screening_question = require("../controllers/screening_question.controller");
 const images = require("../controllers/image.controller");
 const upload = require("../middleware/upload");
@@ -86,6 +87,10 @@ module.exports = (app) => {
   
   // Update a sport by id
   router.put("/sports/edit/:id", sports.updateSport);
+
+  /* DOCTOR */
+  // Retrieve all doctors
+  router.get("/doctors", doctors.getAllDoctors)
 
   app.use("/v1/", router);
 };
