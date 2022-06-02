@@ -92,5 +92,9 @@ module.exports = (app) => {
   //get tag
   router.get("/tag", tag.findAll)
 
+   /* DOCTOR */
+  // Retrieve all doctors
+  router.get("/doctors", doctors.getAllDoctors)
+
   app.use("/v1/", router);
 };
