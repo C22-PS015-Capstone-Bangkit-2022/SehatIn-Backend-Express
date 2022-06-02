@@ -9,6 +9,7 @@ const upload = require("../middleware/upload");
 const authMiddleWare = require("firebase-auth-express-middleware");
 const { getAuth } = require("firebase-admin/auth");
 const firebaseAuth = getAuth();
+const tag = require("../controllers/tag.controller");
 
 module.exports = (app) => {
   const router = require("express").Router();
@@ -86,6 +87,9 @@ module.exports = (app) => {
   
   // Update a sport by id
   router.put("/sports/edit/:id", sports.updateSport);
+
+  //get tag
+  router.get("/tag", tag.findAll)
 
   app.use("/v1/", router);
 };
