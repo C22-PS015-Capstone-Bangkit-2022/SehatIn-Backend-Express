@@ -26,7 +26,7 @@ const cors = require("cors");
 global.__basedir = "./";
 const app = express();
 const authMiddleWare = require("firebase-auth-express-middleware");
-const API_VERSION = "1.04";
+const API_VERSION = "1.05";
 const PORT = process.env.PORT || 3300;
 const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
 
@@ -69,7 +69,15 @@ db.sequelize.sync({ alter: true });
 
 // For testing purposes
 app.get("/", (req, res) => {
-  res.send(`<h2>SehatIn API v${API_VERSION}</h2>`);
+  if (process.env.NODE_ENV === "production") {
+    res.send(`<h2>SehatIn API v${API_VERSION} running in production</h2>`);
+  } else if (process.env.NODE_ENV === "gcloud") {
+    res.send(
+      `<div><h2>SehatIn API v${API_VERSION} running in google cloud</h2><p>${process.env.K_SERVICE}</p></div>`
+    );
+  } else {
+    res.send(`<h2>SehatIn API v${API_VERSION} running in development</h2>`);
+  }
 });
 
 //Testing middleware firebase
