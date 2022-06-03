@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         type : Sequelize.STRING
       },
       strNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       specialist: {
         type: Sequelize.STRING
@@ -32,6 +32,12 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       price: {
+        type: Sequelize.INTEGER
+      },
+      ratings: {
+        type: Sequelize.FLOAT
+      },
+      review: {
         type: Sequelize.INTEGER
       },
       imageUrl: {
