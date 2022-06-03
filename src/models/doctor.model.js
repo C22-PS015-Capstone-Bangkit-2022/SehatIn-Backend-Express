@@ -1,22 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
-    const doctor = sequelize.define("doctor", {
-      id_doctor : {
-        type : Sequelize.INTEGER,
-        primaryKey : true,
+  const doctor = sequelize.define(
+    "doctor",
+    {
+      id_doctor: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
         unique: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      name : {
-        type : Sequelize.STRING
+      name: {
+        type: Sequelize.STRING,
       },
       strNumber: {
-        type: Sequelize.BIGINT
+        type: Sequelize.STRING,
       },
       specialist: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       experience_year: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       alumnus: {
         type: Sequelize.STRING,
@@ -29,26 +31,26 @@ module.exports = (sequelize, Sequelize) => {
         },
       },
       practice_at: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       ratings: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       review: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       imageUrl: {
-          type : Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+      },
     },
     {
       createdAt: false,
-      updatedAt: false
+      updatedAt: false,
     }
-    );
-    
-    return doctor;
+  );
+
+  return doctor;
 };
