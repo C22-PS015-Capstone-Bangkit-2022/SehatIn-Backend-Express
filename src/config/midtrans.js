@@ -16,5 +16,5 @@ if (process.env.NODE_ENV !== "production" && !forceProduction) {
   snap.apiConfig.clientKey = process.env.MIDTRANS_PROD_SERVER_KEY;
 }
 
-export const midtransServerKey = serverKey;
-export default snap;
+//export const midtransServerKey = serverKey;
+module.exports = snap;
