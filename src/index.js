@@ -104,9 +104,6 @@ app.get(
   }
 );
 
-//Payment System
-router.post("/charge", payments.snap);
-
 require("./routes/routes")(app);
 
 app.listen(PORT, () => {
