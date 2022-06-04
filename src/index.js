@@ -26,9 +26,12 @@ const cors = require("cors");
 global.__basedir = "./";
 const app = express();
 const authMiddleWare = require("firebase-auth-express-middleware");
-const API_VERSION = "1.05";
+const API_VERSION = "1.06";
+const NEWEST_THING = "payment system";
 const PORT = process.env.PORT || 3300;
-const { swaggerDocs: V1SwaggerDocs } = require("./swagger"); //documentation
+const { swaggerDocs: V1SwaggerDocs } = require("./swagger");
+const articles = require("./controllers/article.controller"); //documentation
+const payments = require("./controllers/payment.controller");
 
 let corsOptions = {
   origin: "*",
@@ -100,6 +103,9 @@ app.get(
     }
   }
 );
+
+//Payment System
+router.post("/charge", payments.snap);
 
 require("./routes/routes")(app);
 
