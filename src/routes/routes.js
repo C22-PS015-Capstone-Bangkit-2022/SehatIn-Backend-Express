@@ -11,6 +11,7 @@ const authMiddleWare = require("firebase-auth-express-middleware");
 const { getAuth } = require("firebase-admin/auth");
 const firebaseAuth = getAuth();
 const tag = require("../controllers/tag.controller");
+const payments = require("../controllers/payment.controller");
 
 module.exports = (app) => {
   const router = require("express").Router();
@@ -18,11 +19,18 @@ module.exports = (app) => {
   /* DISEASE */
   router.get("/disease/screening", disease.findAllWithScreening);
   router.get("/disease/all", disease.findAll);
-  router.get("/disease/find/:id",disease.findDiseaseById);
-  router.get("/disease/find/:id/screening",disease.findDiseaseWithScreeningByID);
-  router.get("/disease/allGoodFood",disease.getAllGoodFood);
-  router.get("/disease/allBadFood",disease.getAllBadFood);
-  router.get("/disease/my/goodFood", authMiddleWare.authn(firebaseAuth),disease.getMyGoodFood);
+  router.get("/disease/find/:id", disease.findDiseaseById);
+  router.get(
+    "/disease/find/:id/screening",
+    disease.findDiseaseWithScreeningByID
+  );
+  router.get("/disease/allGoodFood", disease.getAllGoodFood);
+  router.get("/disease/allBadFood", disease.getAllBadFood);
+  router.get(
+    "/disease/my/goodFood",
+    authMiddleWare.authn(firebaseAuth),
+    disease.getMyGoodFood
+  );
   router.get("/disease/searchById", disease.searchById);
 
   /* USER */
@@ -37,7 +45,6 @@ module.exports = (app) => {
 
   // Retrieve a single Article with id
   router.get("/articles/:id", articles.getArticleById);
-
 
   // Create a new article
   router.post("/articles/new", articles.addArticle);
@@ -63,7 +70,7 @@ module.exports = (app) => {
 
   // upload images
   router.post("/upload", images.multer.single("file"), images.uploadFile);
-  
+
   /* SPORT */
   // create a sport
   router.post("/sports/new", sports.addSport);
@@ -72,29 +79,36 @@ module.exports = (app) => {
   router.get("/sports", sports.getAllSports);
 
   // Retrieve my sports
-  router.get("/sport/my/goodSport", authMiddleWare.authn(firebaseAuth),sports.getMyGoodSport);
+  router.get(
+    "/sport/my/goodSport",
+    authMiddleWare.authn(firebaseAuth),
+    sports.getMyGoodSport
+  );
 
   // Retrieve all good sports
-  router.get("/sport/allGoodSport",sports.getAllGoodSport);
+  router.get("/sport/allGoodSport", sports.getAllGoodSport);
 
   // Retrieve all bad sports
   // router.get("/sport/allBadSport",sports.getAllBadSport);
-  
+
   // Retrieve a sport by id
   router.get("/sports/:id", sports.getSportById);
-  
+
   // Delete a sport by id
   router.delete("/sports/delete/:id", sports.deleteSport);
-  
+
   // Update a sport by id
   router.put("/sports/edit/:id", sports.updateSport);
 
   //get tag
-  router.get("/tag", tag.findAll)
+  router.get("/tag", tag.findAll);
 
-   /* DOCTOR */
+  /* DOCTOR */
   // Retrieve all doctors
-  router.get("/doctors", doctors.getAllDoctors)
+  router.get("/doctors", doctors.getAllDoctors);
+
+  //Payment System
+  router.post("/charge", payments.snap);
 
   app.use("/v1/", router);
 };
