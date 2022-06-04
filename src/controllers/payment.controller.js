@@ -3,34 +3,31 @@ const snap = require("../config/midtrans");
 
 exports.snap = (req, res) => {
   let orderId = uuidv4();
-  if (req.body.upgrade) {
-    orderId = uuidv4() + "-upgrade";
-  }
-  let parameter = {
-    transaction_details: {
-      order_id: orderId,
-      gross_amount: req.body.totalPrice,
-    },
-    item_details: [
-      {
-        id: req.body.idItem,
-        price: req.body.price,
-        quantity: req.body.jumlah,
-        name: req.body.namaItem,
-        category: "doctor consultation",
-        merchant_name: "SehatIn",
-      },
-    ],
-    customer_details: {
-      first_name: req.body.name,
-      email: req.body.userEmail,
-    },
-    custom_field1: req.body.userId,
-    enabled_payments: ["gopay", "shopeepay"],
-  };
+  // let parameter = {
+  //   transaction_details: {
+  //     order_id: orderId,
+  //     gross_amount: req.body.totalPrice,
+  //   },
+  //   item_details: [
+  //     {
+  //       id: req.body.idItem,
+  //       price: req.body.price,
+  //       quantity: req.body.jumlah,
+  //       name: req.body.namaItem,
+  //       category: "doctor consultation",
+  //       merchant_name: "SehatIn",
+  //     },
+  //   ],
+  //   customer_details: {
+  //     first_name: req.body.name,
+  //     email: req.body.userEmail,
+  //   },
+  //   custom_field1: req.body.userId,
+  //   enabled_payments: ["gopay", "shopeepay"],
+  // };
 
   snap
-    .createTransaction(parameter)
+    .createTransaction(req.body)
     .then((transaction) => {
       // transaction token
       let transactionToken = transaction.token;
@@ -48,6 +45,6 @@ exports.snap = (req, res) => {
       res.status(500).send({
         message: err.message || "Failed to get transaction token.",
       });
-      console.log("[Transaction Token] Error occured:", err.message);
+      console.log("[Transaction Token] Error occurred:", err.message);
     });
 };
