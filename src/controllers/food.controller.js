@@ -5,101 +5,164 @@ const foodGoodFor = db.foodGoodFor;
 const foodBadFor = db.foodBadFor;
 const Op = db.Sequelize.Op;
 
-
-exports.addFood = (req, res)=>{
-  if(!req.body.nameId) {
+exports.addFood = (req, res) => {
+  if (!req.body.nameId) {
     res.status(400).send({
-      message: "Name can not be empty"
+      message: "Name can not be empty",
     });
     return;
   }
 
-  const food = {nameId, nameEn, energy, avg_portion, tipe_makanan, fat, protein, carbs} = req.body;
+  const food = ({
+    nameId,
+    nameEn,
+    energy,
+    avg_portion,
+    tipe_makanan,
+    fat,
+    protein,
+    carbs,
+  } = req.body);
 
   // create food
   Food.create(food)
-    .then(data=> {
+    .then((data) => {
       res.status(201).send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occured while create the food."
+        message: err.message || "Some error occured while create the food.",
       });
     });
-}
+};
 
 exports.allFoods = (req, res) => {
-  const {food} = req.query;
-  if(food){
-    Food.findAll({ where: {nameId: {[Op.iLike]: `%${food}`}},
-      include : [
-        {
-          model: foodGoodFor,
-          include: ["foodsGoodFor"]
-        },
-        {
-          model : foodBadFor,
-          include: ["foodsBadFor"]
-        }
-  
-      ]
-    })
-    .then(data => {
+  Food.findAll({
+    include: [
+      {
+        model: foodGoodFor,
+        include: ["foodsGoodFor"],
+      },
+      {
+        model: foodBadFor,
+        include: ["foodsBadFor"],
+      },
+    ],
+  })
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving disease."
+        message: err.message || "Some error occurred while retrieving disease.",
       });
     });
-  } else{
+};
+
+exports.findFood = (req, res) => {
+  const { food, lang } = req.query;
+  if (lang === "id") {
     Food.findAll({
-      include : [
+      where: { nameId: { [Op.iLike]: `%${food}` } },
+      include: [
         {
           model: foodGoodFor,
-          include: ["foodsGoodFor"]
+          include: ["foodsGoodFor"],
         },
         {
-          model : foodBadFor,
-          include: ["foodsBadFor"]
-        }
-  
-      ]
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
     })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving disease."
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
       });
+  } else if (lang === "en") {
+    Food.findAll({
+      where: { nameEn: { [Op.iLike]: `%${food}` } },
+      include: [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"],
+        },
+        {
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
+      });
+  } else if (lang === "both") {
+    Food.findAll({
+      where: {
+        [Op.or]: [
+          { nameEn: { [Op.iLike]: `%${food}` } },
+          { nameId: { [Op.iLike]: `%${food}` } },
+        ],
+      },
+      include: [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"],
+        },
+        {
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
+      });
+  } else {
+    res.status(500).send({
+      message: "Language unknown!",
     });
   }
 };
-
 exports.deleteFood = (req, res) => {
   const id = req.params.id;
 
   Food.destroy({
-    where: { id_food: id}
+    where: { id_food: id },
   })
-    .then(num => {
-      if (num == 1){
+    .then((num) => {
+      if (num == 1) {
         res.status(200).send({
-          message: "Food successfully deleted!"
+          message: "Food successfully deleted!",
         });
       } else {
         res.status(404).send({
-          message: "Food not found!"
+          message: "Food not found!",
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred!"
-      })
-    })
+        message: err.message || "Some error occurred!",
+      });
+    });
 };
 
 exports.updateFood = (req, res) => {
