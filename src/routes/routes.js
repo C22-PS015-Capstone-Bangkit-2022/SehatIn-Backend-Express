@@ -61,6 +61,8 @@ module.exports = (app) => {
 
   // Get food
   router.get("/food/all", foods.allFoods);
+  // Find food
+  router.get("/food/find", foods.findFood);
 
   // delete a food
   router.delete("/food/delete/:id", foods.deleteFood);
