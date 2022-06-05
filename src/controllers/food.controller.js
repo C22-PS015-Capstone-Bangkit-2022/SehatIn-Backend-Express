@@ -59,7 +59,7 @@ exports.allFoods = (req, res) => {
     });
 };
 
-exports.findFood = (req, res) => {
+exports.searchFood = (req, res) => {
   const { food, lang } = req.query;
   if (lang === "id") {
     Food.findAll({
@@ -187,4 +187,87 @@ exports.updateFood = (req, res) => {
         message: err.message || "Some error occurred!",
       });
     });
+};
+
+exports.findFood = (req, res) => {
+  const { lang, foods } = req.body;
+  if (lang === "id") {
+    Food.findAll({
+      where: { nameId: { [Op.iLike]: { [Op.any]: foods } } },
+      include: [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"],
+        },
+        {
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
+      });
+  } else if (lang === "en") {
+    Food.findAll({
+      where: { nameEn: { [Op.iLike]: { [Op.any]: foods } } },
+      include: [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"],
+        },
+        {
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
+      });
+  } else if (lang === "both") {
+    Food.findAll({
+      where: {
+        [Op.or]: [
+          { nameEn: { [Op.iLike]: { [Op.any]: foods } } },
+          { nameId: { [Op.iLike]: { [Op.any]: foods } } },
+        ],
+      },
+      include: [
+        {
+          model: foodGoodFor,
+          include: ["foodsGoodFor"],
+        },
+        {
+          model: foodBadFor,
+          include: ["foodsBadFor"],
+        },
+      ],
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving disease.",
+        });
+      });
+  } else {
+    res.status(500).send({
+      message: "Language unknown!",
+    });
+  }
 };
