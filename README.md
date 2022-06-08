@@ -53,7 +53,7 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
                 "id_pertanyaan": 17,
                 "pertanyaan": "Apakah kamu sering kesulitan untuk fokus saat siang hari?"
             }]
-        }```
+        }
 
 # Deployment
 
