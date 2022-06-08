@@ -284,6 +284,33 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
             }
         ]
 
+### Screening Question
+#### Show All Screening Questions
+* **URL**
+    /screening-question
+
+* **Method:**
+    `GET`
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```
+      [
+        {
+            "id_pertanyaan": 1,
+            "pertanyaan": "Apakah umur kamu lebih dari 60 tahun?",
+            "untuk_penyakit": 7
+        },
+        {
+        "id_pertanyaan": 2,
+        "pertanyaan": "Apakah kamu memiliki kelebihan berat badan",
+        "untuk_penyakit": 7
+        },
+        {
+            ...
+        }
+      ]
+
 
 # Deployment
 
