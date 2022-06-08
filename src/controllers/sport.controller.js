@@ -30,7 +30,7 @@ exports.addSport = (req, res)=>{
 
 exports.getAllSports = (req, res) => {
     Sport.findAll({
-      attributes: ['id_sport', 'category', 'activity', 'energy', 'avg_duration']
+      attributes: ['id_sport', 'category', 'activity', 'energy']
     })
       .then(data => {
         res.send(data);
