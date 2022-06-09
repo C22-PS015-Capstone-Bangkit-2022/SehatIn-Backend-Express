@@ -311,6 +311,167 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
         }
       ]
 
+### Articles
+#### Show All Articles
+* **URL**
+    /articles
+
+* **Method:**
+    `GET`
+
+* **Data Query**
+    `page=[integer]&size=[integer]`
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```  
+        {
+          "totalItems": 7,
+          "articles": [
+            {
+                "tag": [
+                    "tips",
+                    "Stroke"
+                ],
+                "id_artikel": 12,
+                "judul": "Cara Mengelola Stress saat Pandemi",
+                "isi_artikel": "Stress merupakan bagian dari proses adaptasi terhadap persoalan atau perubahan yang terjadi dalam hidup. Stress dapat dijumpai di berbagai tempat, baik itu di rumah, tempat kerja, lingkungan sekitar, dan sebagainya serta dapat berbentuk kecil, sedang, ataupun besar.",
+                "thumbnail_image": "https://storage.googleapis.com/sehatin-eab72.appspot.com/ARTICLE_IMAGE/1654083633304_Cara-Mengelola-Stress-saat-Pandemi.jpg",
+                "source_link": "https://rs-soewandhi.surabaya.go.id/cara-mengelola-stress-saat-pandemi/",
+                "source_name": null,
+                "created_at": "2022-06-01T11:42:56+08:00"
+            }, 
+            {
+                ...
+            }]
+        }
+
+
+#### Show Article by id
+* **URL**
+    /articles/:id
+
+* **Method:**
+    `GET`
+*  **URL Params**
+
+   **Required:** 
+   `id=[integer]`
+
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:** 
+      ```
+        {
+            "tag": [
+                "tips",
+                "Stroke"
+            ],
+            "id_artikel": 12,
+            "judul": "Cara Mengelola Stress saat Pandemi",
+            "isi_artikel": "Stress merupakan bagian dari proses adaptasi terhadap persoalan atau perubahan yang terjadi dalam hidup. Stress dapat dijumpai di berbagai tempat, baik itu di rumah, tempat kerja, lingkungan sekitar, dan sebagainya serta dapat berbentuk kecil, sedang, ataupun besar.",
+            "thumbnail_image": "https://storage.googleapis.com/sehatin-eab72.appspot.com/ARTICLE_IMAGE/1654083633304_Cara-Mengelola-Stress-saat-Pandemi.jpg",
+            "source_link": "https://rs-soewandhi.surabaya.go.id/cara-mengelola-stress-saat-pandemi/",
+            "source_name": null,
+            "created_at": "2022-06-01T11:42:56+08:00"
+        }       
+
+
+#### Add Article 
+* **URL**
+    /articles/new
+
+* **Method:**
+    `POST`
+
+* **Request**
+    * **Content:**
+    ```
+     {
+        "tag": [
+            "tips",
+            "Stroke"
+        ],
+        "id_artikel": 12,
+        "judul": "Cara Mengelola Stress saat Pandemi",            "isi_artikel": "Stress merupakan bagian dari proses adaptasi terhadap persoalan atau perubahan yang terjadi dalam hidup. Stress dapat dijumpai di berbagai tempat, baik itu di rumah, tempat kerja, lingkungan sekitar, dan sebagainya serta dapat berbentuk kecil, sedang, ataupun besar.",
+        "thumbnail_image": "https://storage.googleapis.com/sehatin-eab72.appspot.com/ARTICLE_IMAGE/1654083633304_Cara-Mengelola-Stress-saat-Pandemi.jpg",
+        "source_link": "https://rs-soewandhi.surabaya.go.id/cara-mengelola-stress-saat-pandemi/",
+        "source_name": null,
+        "created_at": "2022-06-01T11:42:56+08:00"
+    } 
+* **Response**
+    * **Code:** 201 <br/>
+      **Content:**
+      ```
+       {
+            "tag": [
+                "tips",
+                "Stroke"
+            ],
+            "id_artikel": 12,
+            "judul": "Cara Mengelola Stress saat Pandemi",
+            "isi_artikel": "Stress merupakan bagian dari proses adaptasi terhadap persoalan atau perubahan yang terjadi dalam hidup. Stress dapat dijumpai di berbagai tempat, baik itu di rumah, tempat kerja, lingkungan sekitar, dan sebagainya serta dapat berbentuk kecil, sedang, ataupun besar.",
+            "thumbnail_image": "https://storage.googleapis.com/sehatin-eab72.appspot.com/ARTICLE_IMAGE/1654083633304_Cara-Mengelola-Stress-saat-Pandemi.jpg",
+            "source_link": "https://rs-soewandhi.surabaya.go.id/cara-mengelola-stress-saat-pandemi/",
+            "source_name": null,
+            "created_at": "2022-06-01T11:42:56+08:00"
+        }
+
+#### Edit Article 
+* **URL**
+    /articles/edit/:id
+
+* **Method:**
+    `PUT`
+
+*  **URL Params**
+
+   **Required:** 
+   `id=[integer]`
+
+* **Request**
+    * **Content:**
+    ```
+     {
+        "tag": [
+            "tips",
+            "Stroke"
+        ],
+        "id_artikel": 12,
+        "judul": "Cara Mengelola Stress saat Pandemi",            "isi_artikel": "Stress merupakan bagian dari proses adaptasi terhadap persoalan atau perubahan yang terjadi dalam hidup. Stress dapat dijumpai di berbagai tempat, baik itu di rumah, tempat kerja, lingkungan sekitar, dan sebagainya serta dapat berbentuk kecil, sedang, ataupun besar.",
+        "thumbnail_image": "https://storage.googleapis.com/sehatin-eab72.appspot.com/ARTICLE_IMAGE/1654083633304_Cara-Mengelola-Stress-saat-Pandemi.jpg",
+        "source_link": "https://rs-soewandhi.surabaya.go.id/cara-mengelola-stress-saat-pandemi/",
+        "source_name": null,
+        "created_at": "2022-06-01T11:42:56+08:00"
+    } 
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```
+      {
+        "message": "Article successfully updated!"
+      }
+
+#### Delete Article 
+* **URL**
+    /articles/edit/:id
+
+* **Method:**
+    `DELETE`
+
+*  **URL Params**
+
+   **Required:** 
+   `id=[integer]`
+      
+* **Response**
+    * **Code:** 201 <br/>
+      **Content:**
+      ```
+      {
+          "message": "Article successfully deleted!"
+      }
+
 
 # Deployment
 
