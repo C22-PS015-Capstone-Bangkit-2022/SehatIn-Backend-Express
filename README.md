@@ -550,6 +550,29 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
             ...
         }
     ]
+
+### Payment
+#### Add charge
+* **URL**
+    /tag
+
+* **Method:**
+    `POST`
+
+* **Request**
+    * **Code:** 201 <br/>
+      **Content:**
+      ```
+      {
+        idItem: "",
+        namaItem: "",
+        jumlah: 1,
+        price: 2000,
+        totalPrice: 2000,
+        name: "Nama pelanggan",
+        userEmail: "Email pelanggan",
+        userId: "user id firebasenya"
+      }
 # Deployment
 
 ## Using Docker

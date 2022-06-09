@@ -14,7 +14,7 @@ exports.addSport = (req, res)=>{
       });
       return;
     }
-    const sport = {category, activity, energy, avg_duration} = req.body;
+    const sport = {category, activity, energy} = req.body;
   
     // create sport
     Sport.create(sport)
