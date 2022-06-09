@@ -473,6 +473,60 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
       }
 
 
+
+### Sports
+#### Show All Good Sport
+* **URL**
+    /sports
+
+* **Method:**
+    `GET`
+
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```
+      [
+        {
+            "id_sport": 28,
+            "category": "Aktivitas Berat",
+            "activity": "Sawing",
+            "energy": 400
+        },
+        {
+            ...
+        }
+      ]
+    
+#### Show All Good Sport by User's Disease
+* **URL**
+    /sport/my/goodSport
+
+* **Method:**
+    `GET`
+* **HEADER**
+    Authorization: `Bearer ${idToken}`
+
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```
+      {
+        "message": "Success",
+        "error": null,
+        "ok": true,
+        "sport": [
+            {
+                "id_sport": 8,
+                "category": "Aktivitas Sedang",
+                "activity": "Berjalan Santai (4 km/h)",
+                "energy": 210,
+                "thumbnail_image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/5296/h1018d16207257705529.jpg"
+            },
+            {
+                ...
+            }
+    }
 # Deployment
 
 ## Using Docker
