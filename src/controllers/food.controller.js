@@ -76,12 +76,18 @@ exports.searchFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else if (lang === "en") {
@@ -99,12 +105,18 @@ exports.searchFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else if (lang === "both") {
@@ -127,12 +139,18 @@ exports.searchFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else {
@@ -206,12 +224,18 @@ exports.findFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else if (lang === "en") {
@@ -229,12 +253,18 @@ exports.findFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else if (lang === "both") {
@@ -257,12 +287,18 @@ exports.findFood = (req, res) => {
       ],
     })
       .then((data) => {
-        res.send(data);
+        res.send({
+          message: "Success",
+          error: null,
+          ok: true,
+          food: data,
+        });
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disease.",
+          ok: false,
+          message: err.message || "Some error occurred while retrieving food.",
+          error: "Error retrieving data for find food",
         });
       });
   } else {
