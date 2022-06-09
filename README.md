@@ -527,6 +527,29 @@ https://sehatin-backend-nyd7sacnna-et.a.run.app/v1
                 ...
             }
     }
+
+
+### Tag
+#### Show All Tag
+* **URL**
+    /tag
+
+* **Method:**
+    `GET`
+
+* **Response**
+    * **Code:** 200 <br/>
+      **Content:**
+      ```
+      [
+        {
+            "id_tag": 1,
+            "nama_tag": "Apnea tidur obstruktif"
+        },
+        {
+            ...
+        }
+    ]
 # Deployment
 
 ## Using Docker
